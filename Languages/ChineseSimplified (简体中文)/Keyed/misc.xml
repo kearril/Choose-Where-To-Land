@@ -2,5 +2,6 @@
 <LanguageData>
 
  <CWTL_ChooseSpotAndLand>选择落点然后降落</CWTL_ChooseSpotAndLand>
+ <CWTL_Disallowedlandingspot>该降落点无效，请选择有效降落点</CWTL_Disallowedlandingspot>
 
 </LanguageData>

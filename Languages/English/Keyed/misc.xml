@@ -2,5 +2,7 @@
 <LanguageData>
 
   <CWTL_ChooseSpotAndLand>Choose landing spot and land</CWTL_ChooseSpotAndLand>
+  <CWTL_Disallowedlandingspot>This drop spot is invalid. Please select a valid drop location.</CWTL_Disallowedlandingspot>
 
+  
 </LanguageData>
