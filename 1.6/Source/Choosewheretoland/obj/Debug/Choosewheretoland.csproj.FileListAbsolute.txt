@@ -1,6 +1,0 @@
-D:\vs代码\cs\Choosewheretoland\bin\Debug\ChooseWhereToLand.dll
-D:\vs代码\cs\Choosewheretoland\bin\Debug\ChooseWhereToLand.pdb
-D:\vs代码\cs\Choosewheretoland\obj\Debug\Choosewheretoland.csproj.AssemblyReference.cache
-D:\vs代码\cs\Choosewheretoland\obj\Debug\Choosewheretoland.csproj.CoreCompileInputs.cache
-D:\vs代码\cs\Choosewheretoland\obj\Debug\ChooseWhereToLand.dll
-D:\vs代码\cs\Choosewheretoland\obj\Debug\ChooseWhereToLand.pdb
