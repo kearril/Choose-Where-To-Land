@@ -12,65 +12,71 @@ namespace ChooseWhereToLand
 {
     public class PawnsArrivalModeWorker_ChooseWhereToLand : PawnsArrivalModeWorker
     {
-      
+        // 穿梭机默认的朝向，初始为东
         private static Rot4 shuttleRotation = Rot4.East;
 
-       
+     
         public override void Arrive(List<Pawn> pawns, IncidentParms parms)
         {
         }
 
-        // 当运输器抵达地图时调用
+        // 当运输器抵达地图时调用，开启选点界面
         public override void TravellingTransportersArrived(List<ActiveTransporterInfo> transporters, Map map)
         {
-            // 如果是穿梭机
+            // 进入隐藏UI的截图模式，隐藏大部分UI控件
+            Find.ScreenshotModeHandler.Active = true;
+
+            // 判断是否是穿梭机
             if (transporters.IsShuttle())
             {
-                // 获取第一个运输器信息
+                // 取第一个穿梭机运输器信息
                 ActiveTransporterInfo transporter = transporters.FirstOrDefault();
 
-                // 获取穿梭机本体
+                // 获取穿梭机实体
                 Thing shuttle = transporter.GetShuttle();
 
-                // 获取穿梭机的定义
+                // 获取穿梭机的定义（如果无则默认使用通用穿梭机定义）
                 ThingDef shuttleDef = shuttle?.def ?? ThingDefOf.Shuttle;
 
-                // 读取穿梭机的默认放置朝向
+                // 获取穿梭机默认放置朝向
                 shuttleRotation = shuttleDef.defaultPlacingRot;
 
-                // 弹出目标点选取界面（用于玩家选择落点）
+                // 弹出目标点选取界面
                 Find.Targeter.BeginTargeting(
-                    TargetingParameters.ForCell(),    // 目标类型为地图上的 Cell
-                    delegate (LocalTargetInfo x)      // 玩家确认目标后调用
+                    TargetingParameters.ForCell(),    // 目标类型为地图上的单格
+                    delegate (LocalTargetInfo x)      // 玩家确认落点后回调
                     {
+                        // 确认后关闭截图模式，恢复UI
+                        Find.ScreenshotModeHandler.Active = false;
                         // 将穿梭机部署到目标位置
                         TransportersArrivalActionUtility.DropShuttle(transporter, map, x.Cell, shuttleRotation);
                     },
-                    delegate (LocalTargetInfo x)      // 预览阶段绘制穿梭机模型
+                    delegate (LocalTargetInfo x)      // 选点时预览穿梭机的模型
                     {
                         RoyalTitlePermitWorker_CallShuttle.DrawShuttleGhost(x, map, shuttleDef, shuttleRotation);
                     },
                     delegate (LocalTargetInfo x)      // 验证落点是否合法
                     {
-                        // 使用已有函数验证落点
                         AcceptanceReport report = RoyalTitlePermitWorker_CallShuttle.ShuttleCanLandHere(x, map, shuttleDef, shuttleRotation);
 
-                        // 如果验证失败，弹出提示
+                        // 不合法则弹出消息提示
                         if (!report.Accepted)
                         {
                             Messages.Message(report.Reason, new LookTargets(x.Cell, map), MessageTypeDefOf.RejectInput, historical: false);
                         }
-
-                        // 返回是否允许落点
                         return report.Accepted;
                     },
-                    caster: null,                    // 无施法者
-                    actionWhenFinished: null,       // 无附加操作
-                    CompLaunchable.TargeterMouseAttachment, // 鼠标样式为运输仓样式
-                    true, // 播放选点音效
-                    delegate                          // GUI帧更新逻辑
+                    caster: null,                    // 没有施法者
+                    actionWhenFinished: () =>
                     {
-                        // 支持旋转操作
+                        // 无论确认或取消，结束后恢复UI显示
+                        Find.ScreenshotModeHandler.Active = false;
+                    },
+                    CompLaunchable.TargeterMouseAttachment, // 鼠标样式为运输舱相关样式
+                    true, // 播放选点音效
+                    delegate                          // 选点期间每帧调用
+                    {
+                        // 支持玩家通过快捷键旋转穿梭机朝向
                         if (shuttleDef.rotatable)
                         {
                             if (KeyBindingDefOf.Designator_RotateRight.KeyDownEvent)
@@ -83,19 +89,19 @@ namespace ChooseWhereToLand
                             }
                         }
 
-                        // 强制暂停游戏（便于选点）
+                        // 选点时强制暂停游戏
                         if (!Find.TickManager.Paused)
                         {
                             Find.TickManager.TogglePaused();
                         }
 
-                        // 禁止右键取消
+                        // 禁止鼠标右键取消选点
                         if (Event.current.type == EventType.MouseDown && Event.current.button == 1)
                         {
                             Event.current.Use();
                         }
 
-                        // 禁止 Esc 取消
+                        // 禁止键盘Esc取消选点
                         if (KeyBindingDefOf.Cancel.KeyDownEvent)
                         {
                             Event.current.Use();
@@ -104,85 +110,89 @@ namespace ChooseWhereToLand
             }
             else
             {
-                // 非穿梭机路径，普通运输舱处理逻辑
+                // 非穿梭机情况，处理普通运输舱的投放
                 var capturedTransporters = new List<ActiveTransporterInfo>(transporters);
 
                 // 弹出目标点选择界面
                 Find.Targeter.BeginTargeting(
-                    TargetingParameters.ForDropPodsDestination(), // 针对运输舱落点的参数
-                    delegate (LocalTargetInfo x)                   // 落点确认后执行
+                    TargetingParameters.ForDropPodsDestination(), // 运输舱可投放的落点参数
+                    delegate (LocalTargetInfo x)                   // 玩家确认落点后的回调
                     {
-                        // 执行运输舱投放逻辑
+                        // 关闭截图模式，恢复UI
+                        Find.ScreenshotModeHandler.Active = false;
+                        // 执行运输舱投放操作
                         TransportersArrivalActionUtility.DropTravellingDropPods(capturedTransporters, x.Cell, map);
                     },
-                    null, // highlightAction：无特殊高亮
+                    null, // 无高亮动作
                     delegate (LocalTargetInfo x) // 验证落点是否合法
                     {
-                        // 使用自定义函数验证落点
                         AcceptanceReport report = CheckDropCellReport(x, map);
 
-                        // 如果不合法，手动提示
+                        // 不合法时弹出提示
                         if (!report.Accepted)
                         {
                             Messages.Message(report.Reason, new LookTargets(x.Cell, map), MessageTypeDefOf.RejectInput, historical: false);
                         }
 
-                        // 返回验证结果
                         return report.Accepted;
                     },
-                    null, // caster
-                    null, // actionWhenFinished
+                    null, // 无施法者
+                    actionWhenFinished: () =>
+                    {
+                        // 选点结束时恢复UI显示
+                        Find.ScreenshotModeHandler.Active = false;
+                    },
                     CompLaunchable.TargeterMouseAttachment, // 鼠标样式
                     true, // 播放选点音效
-                    delegate (LocalTargetInfo x) // GUI更新回调
+                    delegate (LocalTargetInfo x) // 选点期间每帧调用
                     {
-                        // 强制暂停游戏
+                        // 选点时强制暂停游戏
                         if (!Find.TickManager.Paused)
                         {
                             Find.TickManager.TogglePaused();
                         }
 
-                        // 禁止右键
+                        // 禁止鼠标右键取消
                         if (Event.current.type == EventType.MouseDown && Event.current.button == 1)
                         {
                             Event.current.Use();
                         }
 
-                        // 禁止Esc
+                        // 禁止键盘Esc取消
                         if (KeyBindingDefOf.Cancel.KeyDownEvent)
                         {
                             Event.current.Use();
                         }
                     },
-                    null // onUpdateAction
+                    null // 无额外的更新动作
                 );
             }
         }
 
-        // 自定义的运输舱落点合法性验证函数，返回带翻译的提示信息
+        // 自定义验证运输舱落点是否合法的函数，返回AcceptanceReport，包含翻译提示
         private static AcceptanceReport CheckDropCellReport(LocalTargetInfo x, Map map)
         {
             if (!x.IsValid)
             {
-                return "CWTL_Disallowedlandingspot".Translate(); // 无效坐标
+                return "CWTL_Disallowedlandingspot".Translate(); // 坐标无效
             }
             if (!x.Cell.InBounds(map))
             {
-                return "CWTL_Disallowedlandingspot".Translate(); // 越界
+                return "CWTL_Disallowedlandingspot".Translate(); // 坐标越界
             }
             if (x.Cell.Fogged(map))
             {
-                return "CWTL_Disallowedlandingspot".Translate(); // 迷雾
+                return "CWTL_Disallowedlandingspot".Translate(); // 目标在迷雾中
             }
             if (!DropCellFinder.CanPhysicallyDropInto(x.Cell, map, canRoofPunch: true))
             {
-                return "CWTL_Disallowedlandingspot".Translate(); // 有屋顶或障碍物
+                return "CWTL_Disallowedlandingspot".Translate(); // 有障碍物或不可落点（允许打穿屋顶）
             }
 
             return true;
         }
 
-        // 强制禁用默认突袭落点解析（防止干扰）
+        // 禁用默认的突袭落点中心解析，避免干扰
         public override bool TryResolveRaidSpawnCenter(IncidentParms parms)
         {
             return true;

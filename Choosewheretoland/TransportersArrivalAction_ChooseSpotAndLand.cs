@@ -7,6 +7,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using Verse;
+using Verse.Noise;
 using static RimWorld.Reward_Pawn;
 
 namespace ChooseWhereToLand
@@ -91,8 +92,8 @@ namespace ChooseWhereToLand
                     informEvenIfSeenBefore: true);
             }
 
-            // 镜头跳转到地图中心
-            CameraJumper.TryJump(orGenerateMap.Center, orGenerateMap);
+
+           
 
             // 如果Site有敌对派系且考虑为攻击，则降低玩家与该派系的好感度
             if (site.Faction != null && site.Faction != Faction.OfPlayer && site.MainSitePartDef.considerEnteringAsAttack)
@@ -107,6 +108,12 @@ namespace ChooseWhereToLand
 
             // 弹出“穿梭机抵达”消息提示
             Messages.Message("MessageShuttleArrived".Translate(), lookTarget, MessageTypeDefOf.TaskCompletion);
+
+            Current.Game.CurrentMap = orGenerateMap;
+
+            CameraJumper.TryHideWorld();
+            // 镜头跳转到地图中心
+            CameraJumper.TryJump(orGenerateMap.Center, orGenerateMap);
 
             // 调用对应的抵达模式Worker，执行穿梭机落点逻辑
             fixedArrivalMode.Worker.TravellingTransportersArrived(transporters, orGenerateMap);
