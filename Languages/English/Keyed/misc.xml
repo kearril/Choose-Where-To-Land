@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
 
-  <CWTL_ChooseSpotAndLand>Choose landing spot and land</CWTL_ChooseSpotAndLand>
+  <CWTL_ChooseSpotAndLand>Choose landing spot and land (press ESC during targeting to use the vanilla default landing)</CWTL_ChooseSpotAndLand>
   <CWTL_Disallowedlandingspot>This drop spot is invalid. Please select a valid drop location.</CWTL_Disallowedlandingspot>
 
   

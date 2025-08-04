@@ -15,7 +15,6 @@ namespace ChooseWhereToLand
         // 穿梭机默认的朝向，初始为东
         private static Rot4 shuttleRotation = Rot4.East;
 
-     
         public override void Arrive(List<Pawn> pawns, IncidentParms parms)
         {
         }
@@ -71,6 +70,7 @@ namespace ChooseWhereToLand
                     {
                         // 无论确认或取消，结束后恢复UI显示
                         Find.ScreenshotModeHandler.Active = false;
+                        Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
                     },
                     CompLaunchable.TargeterMouseAttachment, // 鼠标样式为运输舱相关样式
                     true, // 播放选点音效
@@ -101,11 +101,29 @@ namespace ChooseWhereToLand
                             Event.current.Use();
                         }
 
-                        // 禁止键盘Esc取消选点
+                        // Esc 启动默认中心降落
                         if (KeyBindingDefOf.Cancel.KeyDownEvent)
                         {
                             Event.current.Use();
+
+                            // 退出截图模式
+                            Find.ScreenshotModeHandler.Active = false;
+
+                            // 找到默认中心落点
+                            IntVec3 spot;
+                            if (!DropCellFinder.TryFindRaidDropCenterClose(out spot, map))
+                                spot = DropCellFinder.FindRaidDropCenterDistant(map);
+
+                            // 执行中心降落
+                            TransportersArrivalActionUtility.DropShuttle(transporter, map, spot);
+                            // 恢复游戏速度
+                            Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
+                            // 停止选点
+                            Find.Targeter.StopTargeting();
                         }
+
+
+
                     });
             }
             else
@@ -141,6 +159,7 @@ namespace ChooseWhereToLand
                     {
                         // 选点结束时恢复UI显示
                         Find.ScreenshotModeHandler.Active = false;
+                        Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
                     },
                     CompLaunchable.TargeterMouseAttachment, // 鼠标样式
                     true, // 播放选点音效
@@ -157,12 +176,30 @@ namespace ChooseWhereToLand
                         {
                             Event.current.Use();
                         }
-
-                        // 禁止键盘Esc取消
+                        // Esc 启动默认中心降落
                         if (KeyBindingDefOf.Cancel.KeyDownEvent)
                         {
                             Event.current.Use();
+
+                            // 退出截图模式
+                            Find.ScreenshotModeHandler.Active = false;
+                          
+                            // 找到默认中心落点
+                            IntVec3 spot;
+                            if (!DropCellFinder.TryFindRaidDropCenterClose(out spot, map))
+                                spot = DropCellFinder.FindRaidDropCenterDistant(map);
+
+                            // 执行中心降落
+                            TransportersArrivalActionUtility.DropTravellingDropPods(capturedTransporters, spot, map);
+
+                            // 恢复游戏速度
+                            Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
+
+                            // 停止选点
+                            Find.Targeter.StopTargeting();
                         }
+
+
                     },
                     null // 无额外的更新动作
                 );
@@ -191,6 +228,7 @@ namespace ChooseWhereToLand
 
             return true;
         }
+
 
         // 禁用默认的突袭落点中心解析，避免干扰
         public override bool TryResolveRaidSpawnCenter(IncidentParms parms)
