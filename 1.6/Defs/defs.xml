@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-<PawnsArrivalModeDef>
+  <PawnsArrivalModeDef>
     <defName>CWTL_ChooseWhereToLand</defName>
     <workerClass>ChooseWhereToLand.PawnsArrivalModeWorker_ChooseWhereToLand</workerClass>
     <layerWhitelist>
@@ -12,10 +12,19 @@
   <ChooseWhereToLand.NoticeDef>
     <defName>CWTL_Notice</defName>
     <label>UPDATE</label>
-    <description>Update: Added a mod settings interface, you can freely decide whether to enable this feature in the game\n\nCurrently available features:\n1. Manually select a landing point and land when entering the mission site (supports shuttles and drop pods)\n2. Manually select a landing point when attacking other factions' bases (supports shuttles and drop pods)\n3. When entering the point selection state, press the esc key to use the vanilla default landing method (to prevent manual point selection in certain special cases)\n4. Automatically restore the game to 1x speed after landing\n5. When entering the point selection state, press the right mouse button to restore the hidden UI display\n6. When landing a shuttle, support using the Q or E keys to rotate the shuttle's direction\n\nIf you like this mod, please don't forget to rate it on the workshop. It will increase my creative enthusiasm</description>
+    <description>Update: Added a mod settings interface, you can freely decide whether to enable
+      this feature in the game\n\nCurrently available features:\n1. Manually select a landing point
+      and land when entering the mission site (supports shuttles and drop pods)\n2. Manually select
+      a landing point when attacking other factions' bases (supports shuttles and drop pods)\n3.
+      When entering the point selection state, press the esc key to use the vanilla default landing
+      method (to prevent manual point selection in certain special cases)\n4. Automatically restore
+      the game to 1x speed after landing\n5. When entering the point selection state, press the
+      right mouse button to restore the hidden UI display\n6. When landing a shuttle, support using
+      the Q or E keys to rotate the shuttle's direction\n\nIf you like this mod, please don't forget
+      to rate it on the workshop. It will increase my creative enthusiasm</description>
     <key>CWTL_2025.8.22</key>
     <url>https://steamcommunity.com/sharedfiles/filedetails/?id=3537970831</url>
     <imagePath>Preview</imagePath>
   </ChooseWhereToLand.NoticeDef>
-  
-  </Defs>
+
+</Defs>
