@@ -1,7 +1,22 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <LanguageData>
 
- <CWTL_ChooseSpotAndLand>选择落点然后降落(进入选点状态时按esc键使用原版默认降落)</CWTL_ChooseSpotAndLand>
- <CWTL_Disallowedlandingspot>该降落点无效，请选择有效降落点</CWTL_Disallowedlandingspot>
- <CWTL_AttackSettlement>进攻{0}(指定一个降落点)</CWTL_AttackSettlement>
+
+  <CWTL_ChooseSpotAndLand>选择落点然后降落(进入选点状态时按esc键使用原版默认降落)</CWTL_ChooseSpotAndLand>
+
+  <CWTL_Disallowedlandingspot>该降落点无效，请选择有效降落点</CWTL_Disallowedlandingspot>
+
+  <CWTL_AttackSettlement>进攻{0}(指定一个降落点)</CWTL_AttackSettlement>
+
+  <CWTL_accept>确认</CWTL_accept>
+
+  <CWTL_Openmodlink>打开模组链接</CWTL_Openmodlink>
+
+  <CWTL_UseCustomLandingSpot>启用该功能</CWTL_UseCustomLandingSpot>
+
+  <CWTL_Reset>DEV:清空历史通知</CWTL_Reset>
+
+  <CWTL_Setting>选择落点并降落</CWTL_Setting>
+
+  
 </LanguageData>
