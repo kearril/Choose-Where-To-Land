@@ -43,15 +43,15 @@ namespace ChooseWhereToLand
 
                 // 弹出落点选取界面
                 Find.Targeter.BeginTargeting(
-                    TargetingParameters.ForCell(),    // 允许选择地图单格作为目标
-                    delegate (LocalTargetInfo x)      // 玩家确认落点后的回调
+                    TargetingParameters.ForCell(),   
+                    delegate (LocalTargetInfo x)      
                     {
                         //恢复 UI
                         Find.ScreenshotModeHandler.Active = false;
                         // 将穿梭机部署到指定位置
                         TransportersArrivalActionUtility.DropShuttle(transporter, map, x.Cell, shuttleRotation);
                     },
-                    delegate (LocalTargetInfo x)      // 可视化预览
+                    delegate (LocalTargetInfo x)     
                     {
                         RoyalTitlePermitWorker_CallShuttle.DrawShuttleGhost(x, map, shuttleDef, shuttleRotation);
                     },
@@ -74,8 +74,8 @@ namespace ChooseWhereToLand
                         Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
                     },
                     CompLaunchable.TargeterMouseAttachment, 
-                    true, // 音效
-                    delegate                          // 每帧执行的逻辑
+                    true, 
+                    delegate                         
                     {
                         // 快捷键旋转穿梭机
                         if (shuttleDef.rotatable)
@@ -124,18 +124,18 @@ namespace ChooseWhereToLand
             }
             else
             {
-                // 非穿梭机运输器处理逻辑（普通运输舱）
+                // 普通运输舱
                 var capturedTransporters = new List<ActiveTransporterInfo>(transporters);
 
                 // 弹出落点选择界面
                 Find.Targeter.BeginTargeting(
-                    TargetingParameters.ForDropPodsDestination(), // 可投放落点参数
-                    delegate (LocalTargetInfo x)                   // 确认落点回调
+                    TargetingParameters.ForDropPodsDestination(), 
+                    delegate (LocalTargetInfo x)                  
                     {
                         Find.ScreenshotModeHandler.Active = false;
                         TransportersArrivalActionUtility.DropTravellingDropPods(capturedTransporters, x.Cell, map);
                     },
-                    null, // 无高亮动作
+                    null, 
                     delegate (LocalTargetInfo x) // 验证落点合法性
                     {
                         AcceptanceReport report = CheckDropCellReport(x, map);

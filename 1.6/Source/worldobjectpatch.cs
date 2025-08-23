@@ -36,7 +36,7 @@ namespace ChooseWhereToLand
     [HarmonyPatch(typeof(Site), nameof(Site.GetTransportersFloatMenuOptions))]
     public static class Patch_Site_GetTransportersFloatMenuOptions
     {
-        // Postfix方法，和上面类似，扩展原返回值
+       
         public static IEnumerable<FloatMenuOption> Postfix(
             IEnumerable<FloatMenuOption> __result,
             Site __instance,
