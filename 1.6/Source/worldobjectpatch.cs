@@ -23,6 +23,9 @@ namespace ChooseWhereToLand
             foreach (var option in __result)
                 yield return option;
 
+            // 如果自定义落点未启用，直接结束
+            if (!ChooseWhereToLand_Mod.settings.useCustomLandingSpot)
+                yield break;
             // 再添加自定义的选择落点的菜单选项
             foreach (var option in TransportersArrivalAction_ChooseSpotAndLand.GetFloatMenuOptions(launchAction, pods, __instance))
                 yield return option;
@@ -43,7 +46,8 @@ namespace ChooseWhereToLand
             // 返回原始选项
             foreach (var option in __result)
                 yield return option;
-
+            if (!ChooseWhereToLand_Mod.settings.useCustomLandingSpot)
+                yield break;
             // 添加自定义的选项
             foreach (var option in TransportersArrivalAction_ChooseSpotAndLand.GetFloatMenuOptions(launchAction, pods, __instance))
                 yield return option;
@@ -62,7 +66,8 @@ namespace ChooseWhereToLand
             // 先返回原本的所有选项，保证游戏原功能不被破坏
             foreach (var option in __result)
                 yield return option;
-
+            if (!ChooseWhereToLand_Mod.settings.useCustomLandingSpot)
+                yield break;
             // 如果满足攻击条件，添加自定义落点攻击选项
             foreach (var option in TransportersArrivalAction_CWTLAttackSettlement.GetFloatMenuOptions(
                 launchAction, pods, __instance))
@@ -84,7 +89,8 @@ namespace ChooseWhereToLand
             // 先返回原有菜单
             foreach (var option in __result)
                 yield return option;
-
+            if (!ChooseWhereToLand_Mod.settings.useCustomLandingSpot)
+                yield break;
             // 获取 Shuttle 第一个 Pod
             IThingHolder thingHolder = pods.FirstOrDefault();
             CompTransporter firstPod = thingHolder as CompTransporter;
