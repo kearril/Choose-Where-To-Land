@@ -11,6 +11,10 @@
 *.sln.docstates
 *.env
 
+# 忽略编译生成的文件夹和文件
+bin/
+obj/
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
