@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<LanguageData>
+
+  <CWTL_ChooseSpotAndLand>Choose landing spot and land (press ESC during targeting to use the vanilla default landing)</CWTL_ChooseSpotAndLand>
+  <CWTL_Disallowedlandingspot>This drop spot is invalid. Please select a valid drop location.</CWTL_Disallowedlandingspot>
+  <CWTL_AttackSettlement>Attack {0}(Specify a Landing Spot)</CWTL_AttackSettlement>
+  <CWTL_accept>Confirm</CWTL_accept>
+  <CWTL_Openmodlink>Open Mod Link</CWTL_Openmodlink>
+  <CWTL_UseCustomLandingSpot>Enable This Feature</CWTL_UseCustomLandingSpot>
+  <CWTL_Reset>DEV: Clear Notice History</CWTL_Reset>
+  <CWTL_Setting>Choose Where To Land</CWTL_Setting>
+
+  
+</LanguageData>

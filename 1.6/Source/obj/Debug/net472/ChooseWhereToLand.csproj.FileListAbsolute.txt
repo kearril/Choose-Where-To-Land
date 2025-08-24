@@ -1,0 +1,9 @@
+D:\vs代码\cs\ChooseWhereToLand\bin\Debug\net472\ChooseWhereToLand.dll
+D:\vs代码\cs\ChooseWhereToLand\bin\Debug\net472\ChooseWhereToLand.pdb
+D:\vs代码\cs\ChooseWhereToLand\obj\Debug\net472\ChooseWhereToLand.csproj.AssemblyReference.cache
+D:\vs代码\cs\ChooseWhereToLand\obj\Debug\net472\ChooseWhereToLand.GeneratedMSBuildEditorConfig.editorconfig
+D:\vs代码\cs\ChooseWhereToLand\obj\Debug\net472\ChooseWhereToLand.AssemblyInfoInputs.cache
+D:\vs代码\cs\ChooseWhereToLand\obj\Debug\net472\ChooseWhereToLand.AssemblyInfo.cs
+D:\vs代码\cs\ChooseWhereToLand\obj\Debug\net472\ChooseWhereToLand.csproj.CoreCompileInputs.cache
+D:\vs代码\cs\ChooseWhereToLand\obj\Debug\net472\ChooseWhereToLand.dll
+D:\vs代码\cs\ChooseWhereToLand\obj\Debug\net472\ChooseWhereToLand.pdb
