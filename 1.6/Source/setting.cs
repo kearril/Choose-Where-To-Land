@@ -36,8 +36,8 @@ namespace ChooseWhereToLand
 
             // 勾选框：是否启用自定义落点
             listing.CheckboxLabeled(
-                "CWTL_UseCustomLandingSpot".Translate(),  
-                ref settings.useCustomLandingSpot         
+                "CWTL_UseCustomLandingSpot".Translate(),
+                ref settings.useCustomLandingSpot
             );
 
             // 开发者模式下显示重置按钮，用于清空key记录

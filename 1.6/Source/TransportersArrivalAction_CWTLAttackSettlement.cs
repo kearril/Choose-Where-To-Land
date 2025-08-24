@@ -14,11 +14,11 @@ namespace ChooseWhereToLand
     {
         private Settlement settlement;
 
-        
+
         private static readonly PawnsArrivalModeDef fixedArrivalMode =
             DefDatabase<PawnsArrivalModeDef>.GetNamed("CWTL_ChooseWhereToLand", true);
 
-    
+
         public PawnsArrivalModeDef ArrivalMode => fixedArrivalMode;
 
         // 攻击定居点时会生成地图，所以这里返回 true
@@ -63,9 +63,9 @@ namespace ChooseWhereToLand
             return !settlement.HasMap;
         }
 
- 
+
         // 判定是否能攻击该定居点
-       
+
         public static FloatMenuAcceptanceReport CanAttack(IEnumerable<IThingHolder> pods, Settlement settlement)
         {
             // 无效或不可攻击的目标
@@ -96,7 +96,7 @@ namespace ChooseWhereToLand
         /// </summary>
         public override void Arrived(List<ActiveTransporterInfo> transporters, PlanetTile tile)
         {
-          
+
             Thing lookTarget = TransportersArrivalActionUtility.GetLookTarget(transporters);
 
             // 是否首次生成地图
@@ -105,7 +105,7 @@ namespace ChooseWhereToLand
             // 获取或生成地图
             Map orGenerateMap = GetOrGenerateMapUtility.GetOrGenerateMap(settlement.Tile, null);
 
-            
+
             TaggedString letterLabel = "LetterLabelCaravanEnteredEnemyBase".Translate();
             TaggedString letterText = "LetterTransportPodsLandedInEnemyBase".Translate(settlement.Label).CapitalizeFirst();
 
@@ -124,7 +124,7 @@ namespace ChooseWhereToLand
                     informEvenIfSeenBefore: true);
             }
 
-           
+
             Find.LetterStack.ReceiveLetter(letterLabel, letterText, LetterDefOf.NeutralEvent, lookTarget, settlement.Faction);
 
             // 设置当前地图为目标地图
@@ -143,7 +143,7 @@ namespace ChooseWhereToLand
             {
                 yield return floatMenuOption;
             }
-        
+
         }
     }
 

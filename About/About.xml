@@ -6,20 +6,20 @@
 		<li>1.6</li>
 	</supportedVersions>
 	<packageId>kearril.ChooseWhereToLand</packageId>
-	<description>		
+	<description>
 		[img]https://s2.loli.net/2024/11/19/D1I9shm8TcNnyEU.gif[/img]
 		[h1]mod特征[/h1]
 		[b]在原版游戏中，发射穿梭机到任务地点只有两个选项，降落到边缘和降落到中心，而且落点随机，这是十分愚蠢的。
 		这个mod添加了第三个选项“选择落点并降落”，这允许你发射穿梭机到达任务地图时，先加载地图，然后手动指定一个降落点[/b]
 		[h1]FQA[/h1]
 		[b]1.兼容其他mod添加的穿梭机吗？
-		     兼容，如果它使用的是原版的机制。因为这个mod就是针对原版穿梭机的发射机制的改进
-			 
-		   2.性能如何？
-			 不占用任何性能
+		兼容，如果它使用的是原版的机制。因为这个mod就是针对原版穿梭机的发射机制的改进
 
-		   3.兼容现有存档吗？
-		     当然  [/b]
+		2.性能如何？
+		不占用任何性能
+
+		3.兼容现有存档吗？
+		当然 [/b]
 	</description>
 	<modDependencies>
 		<li>

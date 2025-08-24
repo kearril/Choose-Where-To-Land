@@ -11,48 +11,48 @@ namespace ChooseWhereToLand
     [StaticConstructorOnStartup]
     public static class Notice// 静态类：管理通知系统，notice的具体实例
     {
-        public static ChooseWhereToLand_Mod notice_Mod;           
-        public static ChooseWhereToLand_Settings notice_Settings; 
-        public static List<NoticeDef> noticeDefs;      
+        public static ChooseWhereToLand_Mod notice_Mod;
+        public static ChooseWhereToLand_Settings notice_Settings;
+        public static List<NoticeDef> noticeDefs;
 
-       
+
         static Notice()
         {
-            
+
             notice_Mod = LoadedModManager.GetMod<ChooseWhereToLand_Mod>();
             notice_Settings = notice_Mod.GetSettings<ChooseWhereToLand_Settings>();
 
-           
+
             noticeDefs = DefDatabase<NoticeDef>.AllDefs.ToList();
         }
 
-       
+
         public static void CreateNewVersionDialog(NoticeDef noticeDef)
         {
-           
+
             Texture2D image = null;
             if (!string.IsNullOrEmpty(noticeDef.imagePath))
                 image = ContentFinder<Texture2D>.Get(noticeDef.imagePath, true);
 
-            
+
             Find.WindowStack.Add(new Dialog_MessageBox(
-                text: noticeDef.description,    
+                text: noticeDef.description,
                 buttonAText: "CWTL_accept".Translate(),
-                buttonAAction: null,           
+                buttonAAction: null,
                 buttonBText: string.IsNullOrEmpty(noticeDef.url) ? null : "CWTL_Openmodlink".Translate(),
                 buttonBAction: string.IsNullOrEmpty(noticeDef.url) ? null : new Action(() =>
                 {
-                    Application.OpenURL(noticeDef.url); 
+                    Application.OpenURL(noticeDef.url);
                 }),
-                title: noticeDef.LabelCap       
+                title: noticeDef.LabelCap
             )
             {
-                image = image                
+                image = image
             });
         }
     }
 
- 
+
     public class NoticeDef : Def
     {
         public string key;        // 标识符
@@ -60,10 +60,10 @@ namespace ChooseWhereToLand
         public string imagePath;  // 图片路径，可选
     }
 
-  
+
     public class NoticeGameComponent : GameComponent
     {
-       
+
         public NoticeGameComponent(Game game) { }
 
         // 存档加载完成时触发

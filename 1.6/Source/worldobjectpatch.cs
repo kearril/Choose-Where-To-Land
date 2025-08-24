@@ -36,7 +36,7 @@ namespace ChooseWhereToLand
     [HarmonyPatch(typeof(Site), nameof(Site.GetTransportersFloatMenuOptions))]
     public static class Patch_Site_GetTransportersFloatMenuOptions
     {
-       
+
         public static IEnumerable<FloatMenuOption> Postfix(
             IEnumerable<FloatMenuOption> __result,
             Site __instance,
@@ -129,9 +129,9 @@ namespace ChooseWhereToLand
     {
         static ChooseWhereToLandMod()
         {
-            
+
             var harmony = new Harmony("CWTL_ChooseWhereToLand");
-            
+
             harmony.PatchAll();
         }
     }

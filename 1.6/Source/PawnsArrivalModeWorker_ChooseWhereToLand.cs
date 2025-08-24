@@ -15,7 +15,7 @@ namespace ChooseWhereToLand
         // 穿梭机默认的朝向，初始为东
         private static Rot4 shuttleRotation = Rot4.East;
 
-       
+
         public override void Arrive(List<Pawn> pawns, IncidentParms parms)
         {
         }
@@ -43,15 +43,15 @@ namespace ChooseWhereToLand
 
                 // 弹出落点选取界面
                 Find.Targeter.BeginTargeting(
-                    TargetingParameters.ForCell(),   
-                    delegate (LocalTargetInfo x)      
+                    TargetingParameters.ForCell(),
+                    delegate (LocalTargetInfo x)
                     {
                         //恢复 UI
                         Find.ScreenshotModeHandler.Active = false;
                         // 将穿梭机部署到指定位置
                         TransportersArrivalActionUtility.DropShuttle(transporter, map, x.Cell, shuttleRotation);
                     },
-                    delegate (LocalTargetInfo x)     
+                    delegate (LocalTargetInfo x)
                     {
                         RoyalTitlePermitWorker_CallShuttle.DrawShuttleGhost(x, map, shuttleDef, shuttleRotation);
                     },
@@ -66,16 +66,16 @@ namespace ChooseWhereToLand
                         }
                         return report.Accepted;
                     },
-                    caster: null,                 
+                    caster: null,
                     actionWhenFinished: () =>
                     {
                         // 选点完成或取消时恢复 UI
                         Find.ScreenshotModeHandler.Active = false;
                         Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
                     },
-                    CompLaunchable.TargeterMouseAttachment, 
-                    true, 
-                    delegate                         
+                    CompLaunchable.TargeterMouseAttachment,
+                    true,
+                    delegate
                     {
                         // 快捷键旋转穿梭机
                         if (shuttleDef.rotatable)
@@ -129,13 +129,13 @@ namespace ChooseWhereToLand
 
                 // 弹出落点选择界面
                 Find.Targeter.BeginTargeting(
-                    TargetingParameters.ForDropPodsDestination(), 
-                    delegate (LocalTargetInfo x)                  
+                    TargetingParameters.ForDropPodsDestination(),
+                    delegate (LocalTargetInfo x)
                     {
                         Find.ScreenshotModeHandler.Active = false;
                         TransportersArrivalActionUtility.DropTravellingDropPods(capturedTransporters, x.Cell, map);
                     },
-                    null, 
+                    null,
                     delegate (LocalTargetInfo x) // 验证落点合法性
                     {
                         AcceptanceReport report = CheckDropCellReport(x, map);
@@ -147,14 +147,14 @@ namespace ChooseWhereToLand
 
                         return report.Accepted;
                     },
-                    null, 
+                    null,
                     actionWhenFinished: () =>
                     {
                         Find.ScreenshotModeHandler.Active = false;
                         Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
                     },
-                    CompLaunchable.TargeterMouseAttachment, 
-                    true, 
+                    CompLaunchable.TargeterMouseAttachment,
+                    true,
                     delegate (LocalTargetInfo x) // 每帧逻辑
                     {
                         if (!Find.TickManager.Paused)
@@ -190,7 +190,7 @@ namespace ChooseWhereToLand
             }
         }
 
-       
+
         private static AcceptanceReport CheckDropCellReport(LocalTargetInfo x, Map map)
         {
             if (!x.IsValid)
@@ -213,7 +213,7 @@ namespace ChooseWhereToLand
             return true;
         }
 
-      
+
         public override bool TryResolveRaidSpawnCenter(IncidentParms parms)
         {
             return true;

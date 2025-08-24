@@ -27,7 +27,7 @@ namespace ChooseWhereToLand
         //会生成地图
         public override bool GeneratesMap => true;
 
-       
+
         public TransportersArrivalAction_ChooseSpotAndLand()
         { }
 
@@ -74,7 +74,7 @@ namespace ChooseWhereToLand
             // 获取第一个运输器的观察目标（落点）
             Thing lookTarget = TransportersArrivalActionUtility.GetLookTarget(transporters);
 
-            
+
             bool isNewMap = !site.HasMap;
 
             // 获取或生成 Site 对应的地图
