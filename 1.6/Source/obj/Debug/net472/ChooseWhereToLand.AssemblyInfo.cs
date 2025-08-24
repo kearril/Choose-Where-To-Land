@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ChooseWhereToLand")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aab6b9a6960513090378e97617a8e0d1c363b7d3")]
 [assembly: System.Reflection.AssemblyProductAttribute("ChooseWhereToLand")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ChooseWhereToLand")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

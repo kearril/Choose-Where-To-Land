@@ -13,11 +13,11 @@
 
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>..\..\..\SteamLibrary\steamapps\workshop\content\294100\2009463077\Current\Assemblies\0Harmony.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\SteamLibrary\steamapps\workshop\content\294100\2009463077\Current\Assemblies\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="HarmonyMod">
-      <HintPath>..\..\..\SteamLibrary\steamapps\workshop\content\294100\2009463077\Current\Assemblies\HarmonyMod.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\SteamLibrary\steamapps\workshop\content\294100\2009463077\Current\Assemblies\HarmonyMod.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

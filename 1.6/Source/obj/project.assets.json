@@ -249,11 +249,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\vs代码\\cs\\ChooseWhereToLand\\ChooseWhereToLand.csproj",
+      "projectUniqueName": "D:\\vs代码\\Git\\kearril\\Choose-Where-To-Land\\1.6\\Source\\ChooseWhereToLand.csproj",
       "projectName": "ChooseWhereToLand",
-      "projectPath": "D:\\vs代码\\cs\\ChooseWhereToLand\\ChooseWhereToLand.csproj",
+      "projectPath": "D:\\vs代码\\Git\\kearril\\Choose-Where-To-Land\\1.6\\Source\\ChooseWhereToLand.csproj",
       "packagesPath": "C:\\Users\\PARACOSM\\.nuget\\packages\\",
-      "outputPath": "D:\\vs代码\\cs\\ChooseWhereToLand\\obj\\",
+      "outputPath": "D:\\vs代码\\Git\\kearril\\Choose-Where-To-Land\\1.6\\Source\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
