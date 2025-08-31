@@ -23,22 +23,22 @@ namespace ChooseWhereToLand
         // 抵达逻辑
         public override void TravellingTransportersArrived(List<ActiveTransporterInfo> transporters, Map map)
         {
-            
+
             Find.ScreenshotModeHandler.Active = true;
 
             //穿梭机降落
             if (transporters.IsShuttle())
             {
-                
+
                 ActiveTransporterInfo transporter = transporters.FirstOrDefault();
 
-                
+
                 Thing shuttle = transporter.GetShuttle();
 
-                
+
                 ThingDef shuttleDef = shuttle?.def ?? ThingDefOf.Shuttle;
 
-                
+
                 shuttleRotation = shuttleDef.defaultPlacingRot;
 
                 // 弹出落点选取界面
@@ -46,20 +46,20 @@ namespace ChooseWhereToLand
                     TargetingParameters.ForCell(),
                     delegate (LocalTargetInfo x)
                     {
-                        
+
                         Find.ScreenshotModeHandler.Active = false;
-                        
+
                         TransportersArrivalActionUtility.DropShuttle(transporter, map, x.Cell, shuttleRotation);
                     },
                     delegate (LocalTargetInfo x)
                     {
                         RoyalTitlePermitWorker_CallShuttle.DrawShuttleGhost(x, map, shuttleDef, shuttleRotation);
                     },
-                    delegate (LocalTargetInfo x)      
+                    delegate (LocalTargetInfo x)
                     {
                         AcceptanceReport report = RoyalTitlePermitWorker_CallShuttle.ShuttleCanLandHere(x, map, shuttleDef, shuttleRotation);
 
-                        
+
                         if (!report.Accepted)
                         {
                             Messages.Message(report.Reason, new LookTargets(x.Cell, map), MessageTypeDefOf.RejectInput, historical: false);
@@ -127,7 +127,7 @@ namespace ChooseWhereToLand
                 // 普通运输舱
                 var capturedTransporters = new List<ActiveTransporterInfo>(transporters);
 
-                
+
                 Find.Targeter.BeginTargeting(
                     TargetingParameters.ForDropPodsDestination(),
                     delegate (LocalTargetInfo x)
@@ -136,7 +136,7 @@ namespace ChooseWhereToLand
                         TransportersArrivalActionUtility.DropTravellingDropPods(capturedTransporters, x.Cell, map);
                     },
                     null,
-                    delegate (LocalTargetInfo x) 
+                    delegate (LocalTargetInfo x)
                     {
                         AcceptanceReport report = CheckDropCellReport(x, map);
 
@@ -155,7 +155,7 @@ namespace ChooseWhereToLand
                     },
                     CompLaunchable.TargeterMouseAttachment,
                     true,
-                    delegate (LocalTargetInfo x) 
+                    delegate (LocalTargetInfo x)
                     {
                         if (!Find.TickManager.Paused)
                         {
@@ -185,7 +185,7 @@ namespace ChooseWhereToLand
                             Find.Targeter.StopTargeting();
                         }
                     },
-                    null 
+                    null
                 );
             }
         }

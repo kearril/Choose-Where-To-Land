@@ -121,9 +121,48 @@ namespace ChooseWhereToLand
         }
     }
 
+    [HarmonyPatch(typeof(SpaceMapParent), nameof(SpaceMapParent.GetTransportersFloatMenuOptions))]
+    public static class Patch_SpaceMapParent_GetTransportersFloatMenuOptions
+    {
+        public static IEnumerable<FloatMenuOption> Postfix(
+            IEnumerable<FloatMenuOption> __result,
+            SpaceMapParent __instance,
+            IEnumerable<IThingHolder> pods,
+            Action<PlanetTile, TransportersArrivalAction> launchAction)
+        {
+            // 返回原有选项
+            foreach (var option in __result)
+                yield return option;
+            if (!ChooseWhereToLand_Mod.settings.useCustomLandingSpot)
+                yield break;
+            // 添加自定义落点选项
+            foreach (var option in TransportersArrivalAction_CWTLVisitSpace.GetFloatMenuOptions(launchAction, pods, __instance))
+                yield return option;
+        }
+    }
+
+    [HarmonyPatch(typeof(SpaceMapParent), nameof(SpaceMapParent.GetShuttleFloatMenuOptions))]
+    public static class Patch_SpaceMapParent_GetShuttleFloatMenuOptions
+    {
+        public static IEnumerable<FloatMenuOption> Postfix(
+            IEnumerable<FloatMenuOption> __result,
+            SpaceMapParent __instance,
+            IEnumerable<IThingHolder> pods,
+            Action<PlanetTile, TransportersArrivalAction> launchAction)
+        {
+            // 返回原有选项
+            foreach (var option in __result)
+                yield return option;
+            if (!ChooseWhereToLand_Mod.settings.useCustomLandingSpot)
+                yield break;
+            // 添加自定义落点选项
+            foreach (var option in TransportersArrivalAction_CWTLVisitSpace.GetFloatMenuOptions(launchAction, pods, __instance))
+                yield return option;
+        }
+    }
 
 
-    
+
     [StaticConstructorOnStartup]
     public static class ChooseWhereToLandMod
     {
