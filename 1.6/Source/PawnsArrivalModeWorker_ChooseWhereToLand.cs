@@ -20,25 +20,25 @@ namespace ChooseWhereToLand
         {
         }
 
-        // 当运输器抵达地图时调用，弹出选点界面
+        // 抵达逻辑
         public override void TravellingTransportersArrived(List<ActiveTransporterInfo> transporters, Map map)
         {
-            // 隐藏大部分 UI 控件
+            
             Find.ScreenshotModeHandler.Active = true;
 
-            // 判断是否是穿梭机运输器
+            //穿梭机降落
             if (transporters.IsShuttle())
             {
-                // 获取第一个穿梭机运输器
+                
                 ActiveTransporterInfo transporter = transporters.FirstOrDefault();
 
-                // 获取穿梭机实体
+                
                 Thing shuttle = transporter.GetShuttle();
 
-                // 获取穿梭机的定义，如果没有则使用默认通用穿梭机
+                
                 ThingDef shuttleDef = shuttle?.def ?? ThingDefOf.Shuttle;
 
-                // 获取穿梭机默认放置朝向
+                
                 shuttleRotation = shuttleDef.defaultPlacingRot;
 
                 // 弹出落点选取界面
@@ -46,20 +46,20 @@ namespace ChooseWhereToLand
                     TargetingParameters.ForCell(),
                     delegate (LocalTargetInfo x)
                     {
-                        //恢复 UI
+                        
                         Find.ScreenshotModeHandler.Active = false;
-                        // 将穿梭机部署到指定位置
+                        
                         TransportersArrivalActionUtility.DropShuttle(transporter, map, x.Cell, shuttleRotation);
                     },
                     delegate (LocalTargetInfo x)
                     {
                         RoyalTitlePermitWorker_CallShuttle.DrawShuttleGhost(x, map, shuttleDef, shuttleRotation);
                     },
-                    delegate (LocalTargetInfo x)      // 验证落点是否合法
+                    delegate (LocalTargetInfo x)      
                     {
                         AcceptanceReport report = RoyalTitlePermitWorker_CallShuttle.ShuttleCanLandHere(x, map, shuttleDef, shuttleRotation);
 
-                        // 不合法时弹出提示
+                        
                         if (!report.Accepted)
                         {
                             Messages.Message(report.Reason, new LookTargets(x.Cell, map), MessageTypeDefOf.RejectInput, historical: false);
@@ -110,12 +110,12 @@ namespace ChooseWhereToLand
 
                             Find.ScreenshotModeHandler.Active = false;
 
-                            // 找到默认中心落点
-                            IntVec3 spot;
-                            if (!DropCellFinder.TryFindRaidDropCenterClose(out spot, map))
+                            // 找到默认落点
+                            //IntVec3 spot;
+                            if (!DropCellFinder.TryFindRaidDropCenterClose(out var spot, map))
                                 spot = DropCellFinder.FindRaidDropCenterDistant(map, true, false);
 
-                            // 执行中心降落
+                            // 执行降落
                             TransportersArrivalActionUtility.DropShuttle(transporter, map, spot);
                             Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
                             Find.Targeter.StopTargeting();
@@ -127,7 +127,7 @@ namespace ChooseWhereToLand
                 // 普通运输舱
                 var capturedTransporters = new List<ActiveTransporterInfo>(transporters);
 
-                // 弹出落点选择界面
+                
                 Find.Targeter.BeginTargeting(
                     TargetingParameters.ForDropPodsDestination(),
                     delegate (LocalTargetInfo x)
@@ -136,7 +136,7 @@ namespace ChooseWhereToLand
                         TransportersArrivalActionUtility.DropTravellingDropPods(capturedTransporters, x.Cell, map);
                     },
                     null,
-                    delegate (LocalTargetInfo x) // 验证落点合法性
+                    delegate (LocalTargetInfo x) 
                     {
                         AcceptanceReport report = CheckDropCellReport(x, map);
 
@@ -155,7 +155,7 @@ namespace ChooseWhereToLand
                     },
                     CompLaunchable.TargeterMouseAttachment,
                     true,
-                    delegate (LocalTargetInfo x) // 每帧逻辑
+                    delegate (LocalTargetInfo x) 
                     {
                         if (!Find.TickManager.Paused)
                         {
@@ -176,16 +176,16 @@ namespace ChooseWhereToLand
 
                             Find.ScreenshotModeHandler.Active = false;
 
-                            IntVec3 spot;
-                            if (!DropCellFinder.TryFindRaidDropCenterClose(out spot, map))
-                                spot = DropCellFinder.FindRaidDropCenterDistant(map, true, false);
+                            //IntVec3 spot;
+                            if (!DropCellFinder.TryFindRaidDropCenterClose(out var spot, map))
+                                spot = DropCellFinder.FindRaidDropCenterDistant(map);
 
                             TransportersArrivalActionUtility.DropTravellingDropPods(capturedTransporters, spot, map);
                             Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
                             Find.Targeter.StopTargeting();
                         }
                     },
-                    null // 无额外更新动作
+                    null 
                 );
             }
         }

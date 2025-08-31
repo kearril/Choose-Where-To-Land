@@ -9,7 +9,7 @@ using Verse;
 namespace ChooseWhereToLand
 {
     [StaticConstructorOnStartup]
-    public static class Notice// 静态类：管理通知系统，notice的具体实例
+    public static class Notice// 弹窗管理类
     {
         public static ChooseWhereToLand_Mod notice_Mod;
         public static ChooseWhereToLand_Settings notice_Settings;

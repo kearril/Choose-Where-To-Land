@@ -48,7 +48,7 @@ namespace ChooseWhereToLand
                 yield return option;
             if (!ChooseWhereToLand_Mod.settings.useCustomLandingSpot)
                 yield break;
-            // 添加自定义的选项
+            // 添加新选项
             foreach (var option in TransportersArrivalAction_ChooseSpotAndLand.GetFloatMenuOptions(launchAction, pods, __instance))
                 yield return option;
         }
@@ -63,12 +63,12 @@ namespace ChooseWhereToLand
             IEnumerable<IThingHolder> pods,
             Action<PlanetTile, TransportersArrivalAction> launchAction)
         {
-            // 先返回原本的所有选项，保证游戏原功能不被破坏
+            // 返回原本的所有选项
             foreach (var option in __result)
                 yield return option;
             if (!ChooseWhereToLand_Mod.settings.useCustomLandingSpot)
                 yield break;
-            // 如果满足攻击条件，添加自定义落点攻击选项
+            // 如果满足条件，添加自定义落点攻击选项
             foreach (var option in TransportersArrivalAction_CWTLAttackSettlement.GetFloatMenuOptions(
                 launchAction, pods, __instance))
             {
@@ -86,7 +86,7 @@ namespace ChooseWhereToLand
             IEnumerable<IThingHolder> pods,
             Action<PlanetTile, TransportersArrivalAction> launchAction)
         {
-            // 先返回原有菜单
+            // 先返回原有选项
             foreach (var option in __result)
                 yield return option;
             if (!ChooseWhereToLand_Mod.settings.useCustomLandingSpot)
@@ -102,7 +102,7 @@ namespace ChooseWhereToLand
                 ? "ConfirmLandOnHostileFactionBase".Translate(__instance.Faction)
                 : "ConfirmLandOnNeutralFactionBase".Translate(__instance.Faction));
 
-            // 添加自定义攻击菜单
+            // 添加自定义攻击选项
             foreach (var option in TransportersArrivalActionUtility.GetFloatMenuOptions(
                 () => TransportersArrivalAction_CWTLAttackSettlement.CanAttack(pods, __instance),
                 () => new TransportersArrivalAction_CWTLAttackSettlement(__instance),
@@ -123,7 +123,7 @@ namespace ChooseWhereToLand
 
 
 
-    // 静态构造类，在游戏启动时执行
+    
     [StaticConstructorOnStartup]
     public static class ChooseWhereToLandMod
     {

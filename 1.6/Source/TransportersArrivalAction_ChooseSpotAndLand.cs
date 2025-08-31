@@ -12,42 +12,42 @@ using static RimWorld.Reward_Pawn;
 
 namespace ChooseWhereToLand
 {
-    // 自定义运输舱抵达动作类   
+    // 抵达任务点的自定义降落，允许选择落点并生成地图  
     public class TransportersArrivalAction_ChooseSpotAndLand : TransportersArrivalAction
     {
-        // 关联的任务地点 Site
+        
         public RimWorld.Planet.Site site;
 
         // 固定抵达模式
         private static readonly PawnsArrivalModeDef fixedArrivalMode = DefDatabase<PawnsArrivalModeDef>.GetNamed("CWTL_ChooseWhereToLand", true);
 
-        // 只读属性，返回固定的抵达模式
+        
         public PawnsArrivalModeDef ArrivalMode => fixedArrivalMode;
 
-        //会生成地图
+        
         public override bool GeneratesMap => true;
 
 
         public TransportersArrivalAction_ChooseSpotAndLand()
         { }
 
-        // 带 Site 参数的构造函数，记录关联的 Site
+        
         public TransportersArrivalAction_ChooseSpotAndLand(RimWorld.Planet.Site site)
         {
             this.site = site;
         }
 
-        // 持久化数据，用于保存/加载关联的 site 引用
+        
         public override void ExposeData()
         {
             base.ExposeData();
             Scribe_References.Look(ref site, "site");
         }
 
-        // 判断运输舱是否仍然有效，主要校验目标 Tile 是否匹配 Site
+        
         public override FloatMenuAcceptanceReport StillValid(IEnumerable<IThingHolder> pods, PlanetTile destinationTile)
         {
-            // 调用基类校验
+            
             FloatMenuAcceptanceReport floatMenuAcceptanceReport = base.StillValid(pods, destinationTile);
             if (!floatMenuAcceptanceReport)
             {
@@ -58,7 +58,7 @@ namespace ChooseWhereToLand
             {
                 return false;
             }
-            // 进一步检查是否允许访问
+            
             return CanVisit(pods, site);
         }
 
@@ -68,10 +68,10 @@ namespace ChooseWhereToLand
             return !site.HasMap;
         }
 
-        // 当运输器真正抵达时调用，执行地图生成、跳转视角、发送通知等逻辑
+        //抵达逻辑
         public override void Arrived(List<ActiveTransporterInfo> transporters, PlanetTile tile)
         {
-            // 获取第一个运输器的观察目标（落点）
+            
             Thing lookTarget = TransportersArrivalActionUtility.GetLookTarget(transporters);
 
 
@@ -80,7 +80,7 @@ namespace ChooseWhereToLand
             // 获取或生成 Site 对应的地图
             Map orGenerateMap = GetOrGenerateMapUtility.GetOrGenerateMap(site.Tile, site.PreferredMapSize, null);
 
-            // 如果新生成地图，通知游戏潜在敌对单位并发送相关消息
+            // 发送消息相关
             if (isNewMap)
             {
                 Find.TickManager.Notify_GeneratedPotentiallyHostileMap();
@@ -103,7 +103,7 @@ namespace ChooseWhereToLand
                     HistoryEventDefOf.AttackedSettlement);
             }
 
-            // 弹出“穿梭机抵达”提示消息
+            // 弹出抵达消息
             Messages.Message("MessageShuttleArrived".Translate(), lookTarget, MessageTypeDefOf.TaskCompletion);
 
             // 切换当前地图
@@ -114,7 +114,7 @@ namespace ChooseWhereToLand
             // 镜头跳转至地图中心
             CameraJumper.TryJump(orGenerateMap.Center, orGenerateMap);
 
-            // 调用对应抵达模式 Worker，执行落点逻辑
+            // 执行落点逻辑
             fixedArrivalMode.Worker.TravellingTransportersArrived(transporters, orGenerateMap);
         }
 
@@ -142,7 +142,7 @@ namespace ChooseWhereToLand
         // 获取浮动菜单选项
         public static IEnumerable<FloatMenuOption> GetFloatMenuOptions(Action<PlanetTile, TransportersArrivalAction> launchAction, IEnumerable<IThingHolder> pods, RimWorld.Planet.Site site)
         {
-            // 调用工具类获取菜单项
+            
             foreach (FloatMenuOption floatMenuOption in TransportersArrivalActionUtility.GetFloatMenuOptions(
                 () => CanVisit(pods, site),
                 () => new TransportersArrivalAction_ChooseSpotAndLand(site),

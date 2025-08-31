@@ -10,6 +10,7 @@ using static RimWorld.Reward_Pawn;
 
 namespace ChooseWhereToLand
 {
+    // 抵达其他派系基地的自定义降落，允许选择落点并生成地图
     public class TransportersArrivalAction_CWTLAttackSettlement : TransportersArrivalAction
     {
         private Settlement settlement;
@@ -21,7 +22,7 @@ namespace ChooseWhereToLand
 
         public PawnsArrivalModeDef ArrivalMode => fixedArrivalMode;
 
-        // 攻击定居点时会生成地图，所以这里返回 true
+        // 攻击定居点时会生成地图
         public override bool GeneratesMap => true;
 
         public TransportersArrivalAction_CWTLAttackSettlement() { }
@@ -34,32 +35,32 @@ namespace ChooseWhereToLand
         public override void ExposeData()
         {
             base.ExposeData();
-            // 保存/加载目标定居点
+            
             Scribe_References.Look(ref settlement, "settlement");
         }
 
         public override FloatMenuAcceptanceReport StillValid(IEnumerable<IThingHolder> pods, PlanetTile destinationTile)
         {
-            // 基础合法性检测（例如运输舱是否还存在）
+            
             FloatMenuAcceptanceReport floatMenuAcceptanceReport = base.StillValid(pods, destinationTile);
             if (!floatMenuAcceptanceReport)
             {
                 return floatMenuAcceptanceReport;
             }
 
-            // 检查目标是否发生了变化
+            
             if (settlement != null && settlement.Tile != destinationTile)
             {
                 return false;
             }
 
-            // 执行自定义的“能否攻击”逻辑
+           
             return CanAttack(pods, settlement);
         }
 
         public override bool ShouldUseLongEvent(List<ActiveTransporterInfo> pods, PlanetTile tile)
         {
-            // 如果定居点没有地图，则需要生成地图 属于长事件
+            
             return !settlement.HasMap;
         }
 
@@ -91,18 +92,16 @@ namespace ChooseWhereToLand
             return true;
         }
 
-        /// <summary>
-        /// 执行抵达逻辑
-        /// </summary>
+        
         public override void Arrived(List<ActiveTransporterInfo> transporters, PlanetTile tile)
         {
 
             Thing lookTarget = TransportersArrivalActionUtility.GetLookTarget(transporters);
 
-            // 是否首次生成地图
+            
             bool isFirstTimeGenerate = !settlement.HasMap;
 
-            // 获取或生成地图
+            
             Map orGenerateMap = GetOrGenerateMapUtility.GetOrGenerateMap(settlement.Tile, null);
 
 
