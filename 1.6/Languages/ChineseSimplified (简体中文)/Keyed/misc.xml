@@ -18,5 +18,5 @@
 
   <CWTL_Setting>选择落点并降落</CWTL_Setting>
 
-
+  <CWTL_LaunchTo>发射到{LOCATION_label}(选择落点)</CWTL_LaunchTo>
 </LanguageData>

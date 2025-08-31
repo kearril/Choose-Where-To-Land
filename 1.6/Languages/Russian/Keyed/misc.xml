@@ -9,6 +9,6 @@
   <CWTL_UseCustomLandingSpot>Включить эту функцию</CWTL_UseCustomLandingSpot>
   <CWTL_Reset>DEV: Очистить историю уведомлений</CWTL_Reset>
   <CWTL_Setting>Choose Where To Land</CWTL_Setting>
-
-  
+  <CWTL_LaunchTo>Запустить к {LOCATION_label} (Выберите место приземления)</CWTL_LaunchTo>
+    
 </LanguageData>
