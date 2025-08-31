@@ -26,6 +26,10 @@ namespace ChooseWhereToLand
             // 如果自定义落点未启用，直接结束
             if (!ChooseWhereToLand_Mod.settings.useCustomLandingSpot)
                 yield break;
+            if (TransportersArrivalAction_LandInSpecificCell.CanLandInSpecificCell(pods, __instance))
+            {
+                yield break;
+            }
             // 再添加自定义的选择落点的菜单选项
             foreach (var option in TransportersArrivalAction_ChooseSpotAndLand.GetFloatMenuOptions(launchAction, pods, __instance))
                 yield return option;
@@ -48,6 +52,10 @@ namespace ChooseWhereToLand
                 yield return option;
             if (!ChooseWhereToLand_Mod.settings.useCustomLandingSpot)
                 yield break;
+            if (TransportersArrivalAction_LandInSpecificCell.CanLandInSpecificCell(pods, __instance))
+            {
+                yield break;
+            }
             // 添加新选项
             foreach (var option in TransportersArrivalAction_ChooseSpotAndLand.GetFloatMenuOptions(launchAction, pods, __instance))
                 yield return option;
@@ -68,6 +76,10 @@ namespace ChooseWhereToLand
                 yield return option;
             if (!ChooseWhereToLand_Mod.settings.useCustomLandingSpot)
                 yield break;
+            if (TransportersArrivalAction_LandInSpecificCell.CanLandInSpecificCell(pods, __instance))
+            {
+                yield break;
+            }
             // 如果满足条件，添加自定义落点攻击选项
             foreach (var option in TransportersArrivalAction_CWTLAttackSettlement.GetFloatMenuOptions(
                 launchAction, pods, __instance))
@@ -91,6 +103,10 @@ namespace ChooseWhereToLand
                 yield return option;
             if (!ChooseWhereToLand_Mod.settings.useCustomLandingSpot)
                 yield break;
+            if (TransportersArrivalAction_LandInSpecificCell.CanLandInSpecificCell(pods, __instance))
+            {
+                yield break;
+            }
             // 获取 Shuttle 第一个 Pod
             IThingHolder thingHolder = pods.FirstOrDefault();
             CompTransporter firstPod = thingHolder as CompTransporter;
@@ -135,6 +151,10 @@ namespace ChooseWhereToLand
                 yield return option;
             if (!ChooseWhereToLand_Mod.settings.useCustomLandingSpot)
                 yield break;
+            if (TransportersArrivalAction_LandInSpecificCell.CanLandInSpecificCell(pods, __instance))
+            {
+                yield break;
+            }
             // 添加自定义落点选项
             foreach (var option in TransportersArrivalAction_CWTLVisitSpace.GetFloatMenuOptions(launchAction, pods, __instance))
                 yield return option;
@@ -155,6 +175,10 @@ namespace ChooseWhereToLand
                 yield return option;
             if (!ChooseWhereToLand_Mod.settings.useCustomLandingSpot)
                 yield break;
+            if (TransportersArrivalAction_LandInSpecificCell.CanLandInSpecificCell(pods, __instance))
+            {
+                yield break;
+            }
             // 添加自定义落点选项
             foreach (var option in TransportersArrivalAction_CWTLVisitSpace.GetFloatMenuOptions(launchAction, pods, __instance))
                 yield return option;
