@@ -2,9 +2,9 @@
 <LanguageData>
   
 
-  <CWTL_Notice.label>2025/8/31更新通知</CWTL_Notice.label>
+  <CWTL_Notice.label>2025/9/1通知</CWTL_Notice.label>
 
-  <CWTL_Notice.description>更新：现在支持发射到小行星时使用此功能
+  <CWTL_Notice.description>注意:本模组不兼容(no pause challenge)\n同时也不兼容任何*禁止暂停游戏*的模组
     
     目前已有的功能:
     1.在进入任务地图时手动选择落点并降落（支持穿梭机以及空投舱）
@@ -14,6 +14,14 @@
     5.在进入选点状态时可以按鼠标右键恢复隐藏的ui显示
     6.在降落穿梭机时，支持使用Q或者E键旋转穿梭机朝向
     7.提供模组设置界面，你能自由决定是否在游戏内开启此功能
+    8.在进入小行星时手动选择落点并降落（支持穿梭机以及空投舱）
+
+
+
+
+
+
+    
     
     如果你喜欢这个模组，请不要忘记在工坊上给该模组点赞。这能提高我的创作热情</CWTL_Notice.description>
   

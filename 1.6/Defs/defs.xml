@@ -11,8 +11,8 @@
 
   <ChooseWhereToLand.NoticeDef>
     <defName>CWTL_Notice</defName>
-    <label>2025/8/31 UPDATE</label>
-    <description>Update: This feature now supports launching to asteroids.
+    <label>2025/9/1 UPDATE</label>
+    <description>NOTE: This mod is not compatible with (no pause challenge)\nAlso, it is not compatible with any mod that *forbids pausing the game*
       
       Currently available features:
       1.Manually select a landing point and land when entering the mission site (supports shuttles and drop pods)
@@ -22,6 +22,14 @@
       5.When entering the point selection state, press the right mouse button to restore the hidden UI display
       6.When landing a shuttle, support using the Q or E keys to rotate the shuttle's direction
       7.Provides a mod settings interface, allowing you to freely enable or disable this feature in-game.
+      8.Manually select a landing point and land when entering the asteroid (supports shuttles and drop pods)
+
+
+
+
+
+
+
       
       If you enjoy this mod, please don't forget to rate it on the workshop. It will increase my creative enthusiasm</description>
     <key>CWTL_2025.8.31</key>
