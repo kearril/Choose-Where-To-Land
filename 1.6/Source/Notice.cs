@@ -35,7 +35,7 @@ namespace ChooseWhereToLand
                 image = ContentFinder<Texture2D>.Get(noticeDef.imagePath, true);
 
 
-            Find.WindowStack.Add(new Dialog_MessageBox(
+            Find.WindowStack.Add(new Dialog_CWTLNotice(
                 text: noticeDef.description,
                 buttonAText: "CWTL_accept".Translate(),
                 buttonAAction: null,
