@@ -12,7 +12,7 @@
   <ChooseWhereToLand.NoticeDef>
     <defName>CWTL_Notice</defName>
     <label>2025/9/1 UPDATE</label>
-    <description>NOTE: This mod is not compatible with (no pause challenge)\nAlso, it is not compatible with any mod that *forbids pausing the game*
+    <description>NOTE: This mod is not compatible with (no pause challenge)\nAlso, it is not compatible with any mod that *forbids pausing the game*（trying to fix this issue）
       
       Currently available features:
       1.Manually select a landing point and land when entering the mission site (supports shuttles and drop pods)
