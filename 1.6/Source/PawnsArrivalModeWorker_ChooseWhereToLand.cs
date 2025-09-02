@@ -93,7 +93,7 @@ namespace ChooseWhereToLand
                         // 强制暂停游戏
                         if (!Find.TickManager.Paused)
                         {
-                            Find.TickManager.TogglePaused();
+                            Find.TickManager.Pause();
                         }
 
                         // 鼠标右键恢复ui
