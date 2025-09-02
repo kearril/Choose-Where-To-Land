@@ -159,7 +159,7 @@ namespace ChooseWhereToLand
                     {
                         if (!Find.TickManager.Paused)
                         {
-                            Find.TickManager.TogglePaused();
+                            Find.TickManager.Pause();
                         }
 
                         // 右键恢复ui
