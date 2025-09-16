@@ -1,10 +1,5 @@
 ﻿using RimWorld;
 using RimWorld.Planet;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
 
@@ -12,7 +7,7 @@ namespace ChooseWhereToLand
 {
     public class PawnsArrivalModeWorker_ChooseWhereToLand : PawnsArrivalModeWorker
     {
-        // 穿梭机默认的朝向，初始为东
+        // 穿梭机默认的朝向为东
         private static Rot4 shuttleRotation = Rot4.East;
 
 
@@ -41,7 +36,7 @@ namespace ChooseWhereToLand
 
                 shuttleRotation = shuttleDef.defaultPlacingRot;
 
-                // 弹出落点选取界面
+                // 落点选取界面
                 Find.Targeter.BeginTargeting(
                     TargetingParameters.ForCell(),
                     delegate (LocalTargetInfo x)
@@ -77,7 +72,7 @@ namespace ChooseWhereToLand
                     true,
                     delegate
                     {
-                        // 快捷键旋转穿梭机
+                        // 旋转穿梭机
                         if (shuttleDef.rotatable)
                         {
                             if (KeyBindingDefOf.Designator_RotateRight.KeyDownEvent)
@@ -207,7 +202,7 @@ namespace ChooseWhereToLand
             }
             if (!DropCellFinder.CanPhysicallyDropInto(x.Cell, map, canRoofPunch: true))
             {
-                return "CWTL_Disallowedlandingspot".Translate(); // 目标不可落点（允许打穿屋顶）
+                return "CWTL_Disallowedlandingspot".Translate(); // 目标不可落点
             }
 
             return true;

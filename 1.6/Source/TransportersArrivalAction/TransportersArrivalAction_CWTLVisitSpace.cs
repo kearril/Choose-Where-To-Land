@@ -1,19 +1,15 @@
 ﻿using RimWorld;
 using RimWorld.Planet;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Verse;
 
 namespace ChooseWhereToLand
 {
+    // 访问太空时的TransportersArrivalAction
     public class TransportersArrivalAction_CWTLVisitSpace : TransportersArrivalAction
     {
         private MapParent parent;
 
-        // 固定抵达模式
+
         private static readonly PawnsArrivalModeDef fixedArrivalMode = DefDatabase<PawnsArrivalModeDef>.GetNamed("CWTL_ChooseWhereToLand", true);
 
         public PawnsArrivalModeDef ArrivalMode => fixedArrivalMode;
@@ -64,10 +60,10 @@ namespace ChooseWhereToLand
             }
             Map orGenerateMap = GetOrGenerateMapUtility.GetOrGenerateMap(parent.Tile, size, parent.def);
 
-            // 设置当前地图为目标地图
+
             Current.Game.CurrentMap = orGenerateMap;
 
-            // 隐藏世界地图,并跳转到目标地图中心
+
             CameraJumper.TryHideWorld();
             CameraJumper.TryJump(orGenerateMap.Center, orGenerateMap);
             if (transporters.IsShuttle())
@@ -78,7 +74,7 @@ namespace ChooseWhereToLand
             {
                 Messages.Message("MessageTransportPodsArrived".Translate(), lookTarget, MessageTypeDefOf.TaskCompletion);
             }
-            // 使用自定义抵达模式的 Worker 处理运输舱的落点逻辑
+
             fixedArrivalMode.Worker.TravellingTransportersArrived(transporters, orGenerateMap);
         }
 

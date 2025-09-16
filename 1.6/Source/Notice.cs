@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 using Verse;
 
 namespace ChooseWhereToLand
 {
     [StaticConstructorOnStartup]
-    public static class Notice// 弹窗管理类
+    public static class Notice// 弹窗
     {
         public static ChooseWhereToLand_Mod notice_Mod;
         public static ChooseWhereToLand_Settings notice_Settings;
@@ -55,9 +50,9 @@ namespace ChooseWhereToLand
 
     public class NoticeDef : Def
     {
-        public string key;        // 标识符
-        public string url;        // 链接 URL
-        public string imagePath;  // 图片路径，可选
+        public string key;
+        public string url;
+        public string imagePath;
     }
 
 
@@ -80,7 +75,7 @@ namespace ChooseWhereToLand
             LongEventHandler.ExecuteWhenFinished(() => ShowNoticesOnce());
         }
 
-        // 显示一次性通知
+
         private void ShowNoticesOnce()
         {
             foreach (NoticeDef noticeDef in Notice.noticeDefs)
@@ -101,7 +96,7 @@ namespace ChooseWhereToLand
                 }
             }
 
-            // 保存设置
+
             Notice.notice_Mod.WriteSettings();
         }
     }

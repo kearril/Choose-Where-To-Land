@@ -1,16 +1,10 @@
 ﻿using RimWorld;
 using RimWorld.Planet;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Verse;
-using static RimWorld.Reward_Pawn;
 
 namespace ChooseWhereToLand
 {
-    // 抵达其他派系基地的自定义降落，允许选择落点并生成地图
+    // 进攻其他派系基地的TransportersArrivalAction
     public class TransportersArrivalAction_CWTLAttackSettlement : TransportersArrivalAction
     {
         private Settlement settlement;
@@ -22,7 +16,7 @@ namespace ChooseWhereToLand
 
         public PawnsArrivalModeDef ArrivalMode => fixedArrivalMode;
 
-        // 攻击定居点时会生成地图
+
         public override bool GeneratesMap => true;
 
         public TransportersArrivalAction_CWTLAttackSettlement() { }
@@ -65,23 +59,23 @@ namespace ChooseWhereToLand
         }
 
 
-        // 判定是否能攻击该定居点
+
 
         public static FloatMenuAcceptanceReport CanAttack(IEnumerable<IThingHolder> pods, Settlement settlement)
         {
-            // 无效或不可攻击的目标
+
             if (settlement == null || !settlement.Spawned || !settlement.Attackable)
             {
                 return false;
             }
 
-            // 必须有未倒地的殖民者
+
             if (!TransportersArrivalActionUtility.AnyNonDownedColonist(pods))
             {
                 return false;
             }
 
-            // 检查是否处于冷却中
+
             if (settlement.EnterCooldownBlocksEntering())
             {
                 return FloatMenuAcceptanceReport.WithFailReasonAndMessage(
@@ -108,10 +102,10 @@ namespace ChooseWhereToLand
             TaggedString letterLabel = "LetterLabelCaravanEnteredEnemyBase".Translate();
             TaggedString letterText = "LetterTransportPodsLandedInEnemyBase".Translate(settlement.Label).CapitalizeFirst();
 
-            // 调整派系关系（被攻击时会恶化）
+
             SettlementUtility.AffectRelationsOnAttacked(settlement, ref letterText);
 
-            // 如果是首次生成地图，触发相关逻辑（敌对地图、亲属发现提示等）
+
             if (isFirstTimeGenerate)
             {
                 Find.TickManager.Notify_GeneratedPotentiallyHostileMap();
@@ -126,14 +120,14 @@ namespace ChooseWhereToLand
 
             Find.LetterStack.ReceiveLetter(letterLabel, letterText, LetterDefOf.NeutralEvent, lookTarget, settlement.Faction);
 
-            // 设置当前地图为目标地图
+
             Current.Game.CurrentMap = orGenerateMap;
 
-            // 隐藏世界地图，并跳转到目标地图中心
+
             CameraJumper.TryHideWorld();
             CameraJumper.TryJump(orGenerateMap.Center, orGenerateMap);
 
-            // 使用自定义抵达模式的 Worker 处理运输舱的落点逻辑
+
             fixedArrivalMode.Worker.TravellingTransportersArrived(transporters, orGenerateMap);
         }
         public static IEnumerable<FloatMenuOption> GetFloatMenuOptions(Action<PlanetTile, TransportersArrivalAction> launchAction, IEnumerable<IThingHolder> pods, Settlement settlement)

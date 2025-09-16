@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 using Verse;
 
 namespace ChooseWhereToLand
@@ -15,7 +10,7 @@ namespace ChooseWhereToLand
         private bool InteractionDelayExpired => TimeUntilInteractive <= 0f;
         private float TimeUntilInteractive => interactionDelay - (Time.realtimeSinceStartup - creationRealTime);
         private float creationRealTime = -1f;
-        public static Texture2D background = ContentFinder<Texture2D>.Get("NotificationBackground");
+        public  Texture2D background = ContentFinder<Texture2D>.Get("NotificationBackground");
         public Dialog_CWTLNotice(TaggedString text, string buttonAText = null, Action buttonAAction = null, string buttonBText = null, Action buttonBAction = null, string title = null, bool buttonADestructive = false, Action acceptAction = null, Action cancelAction = null, WindowLayer layer = WindowLayer.Dialog) : base(text)
         {
             this.text = text;
@@ -56,7 +51,7 @@ namespace ChooseWhereToLand
                 num += 10f;
             }
             
-            if (image != null)//绘制图片
+            if (image != null)//绘制图片，就是模组封面
             {
                 float num2 = (float)image.width / (float)image.height;
                 float num3 = 270f * num2;
