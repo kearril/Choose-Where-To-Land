@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using Verse;
 
 namespace ChooseWhereToLand
 {
     [StaticConstructorOnStartup]
-    public static class Notice// 弹窗
+    public static class Notice
     {
         public static ChooseWhereToLand_Mod notice_Mod;
         public static ChooseWhereToLand_Settings notice_Settings;
@@ -61,14 +64,12 @@ namespace ChooseWhereToLand
 
         public NoticeGameComponent(Game game) { }
 
-        // 存档加载完成时触发
         public override void LoadedGame()
         {
             base.LoadedGame();
             LongEventHandler.ExecuteWhenFinished(() => ShowNoticesOnce());
         }
 
-        // 新游戏开始时触发
         public override void StartedNewGame()
         {
             base.StartedNewGame();
@@ -78,20 +79,19 @@ namespace ChooseWhereToLand
 
         private void ShowNoticesOnce()
         {
+            return;
+            
             foreach (NoticeDef noticeDef in Notice.noticeDefs)
             {
                 string lastKey;
 
-                // 判断是否已经显示过该通知
                 bool shouldShow = !Notice.notice_Settings.noticeHistory.TryGetValue(noticeDef.defName, out lastKey)
                                   || noticeDef.key != lastKey;
 
                 if (shouldShow)
                 {
-                    // 更新历史记录为最新 key
                     Notice.notice_Settings.noticeHistory[noticeDef.defName] = noticeDef.key;
 
-                    // 创建并显示通知窗口
                     Notice.CreateNewVersionDialog(noticeDef);
                 }
             }

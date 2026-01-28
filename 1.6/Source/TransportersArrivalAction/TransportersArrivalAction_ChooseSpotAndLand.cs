@@ -1,34 +1,29 @@
-﻿using RimWorld;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using RimWorld;
 using RimWorld.Planet;
 using Verse;
 
 namespace ChooseWhereToLand
 {
-    //任务点的 TransportersArrivalAction
     public class TransportersArrivalAction_ChooseSpotAndLand : TransportersArrivalAction
     {
-
         public RimWorld.Planet.Site site;
-
 
         private static readonly PawnsArrivalModeDef fixedArrivalMode = DefDatabase<PawnsArrivalModeDef>.GetNamed("CWTL_ChooseWhereToLand", true);
 
-
         public PawnsArrivalModeDef ArrivalMode => fixedArrivalMode;
-
-
         public override bool GeneratesMap => true;
 
-
         public TransportersArrivalAction_ChooseSpotAndLand()
-        { }
-
+        {
+        }
 
         public TransportersArrivalAction_ChooseSpotAndLand(RimWorld.Planet.Site site)
         {
             this.site = site;
         }
-
 
         public override void ExposeData()
         {
@@ -36,10 +31,8 @@ namespace ChooseWhereToLand
             Scribe_References.Look(ref site, "site");
         }
 
-
         public override FloatMenuAcceptanceReport StillValid(IEnumerable<IThingHolder> pods, PlanetTile destinationTile)
         {
-
             FloatMenuAcceptanceReport floatMenuAcceptanceReport = base.StillValid(pods, destinationTile);
             if (!floatMenuAcceptanceReport)
             {
@@ -54,36 +47,26 @@ namespace ChooseWhereToLand
             return CanVisit(pods, site);
         }
 
-
         public override bool ShouldUseLongEvent(List<ActiveTransporterInfo> pods, PlanetTile tile)
         {
-            return !site.HasMap;
+            return site != null && !site.HasMap;
         }
 
-        //抵达逻辑
         public override void Arrived(List<ActiveTransporterInfo> transporters, PlanetTile tile)
         {
-
             Thing lookTarget = TransportersArrivalActionUtility.GetLookTarget(transporters);
-
-
             bool isNewMap = !site.HasMap;
-
-
             Map orGenerateMap = GetOrGenerateMapUtility.GetOrGenerateMap(site.Tile, site.PreferredMapSize, null);
-
 
             if (isNewMap)
             {
                 Find.TickManager.Notify_GeneratedPotentiallyHostileMap();
-
                 PawnRelationUtility.Notify_PawnsSeenByPlayer_Letter_Send(
                     orGenerateMap.mapPawns.AllPawns,
                     "LetterRelatedPawnsInMapWherePlayerLanded".Translate(Faction.OfPlayer.def.pawnsPlural),
                     LetterDefOf.NeutralEvent,
                     informEvenIfSeenBefore: true);
             }
-
 
             if (site.Faction != null && site.Faction != Faction.OfPlayer && site.MainSitePartDef.considerEnteringAsAttack)
             {
@@ -95,21 +78,12 @@ namespace ChooseWhereToLand
                     HistoryEventDefOf.AttackedSettlement);
             }
 
-
             Messages.Message("MessageShuttleArrived".Translate(), lookTarget, MessageTypeDefOf.TaskCompletion);
-
-
             Current.Game.CurrentMap = orGenerateMap;
-
-
             CameraJumper.TryHideWorld();
-
             CameraJumper.TryJump(orGenerateMap.Center, orGenerateMap);
-
-
             fixedArrivalMode.Worker.TravellingTransportersArrived(transporters, orGenerateMap);
         }
-
 
         public static FloatMenuAcceptanceReport CanVisit(IEnumerable<IThingHolder> pods, RimWorld.Planet.Site site)
         {
@@ -131,10 +105,8 @@ namespace ChooseWhereToLand
             return true;
         }
 
-
         public static IEnumerable<FloatMenuOption> GetFloatMenuOptions(Action<PlanetTile, TransportersArrivalAction> launchAction, IEnumerable<IThingHolder> pods, RimWorld.Planet.Site site)
         {
-
             foreach (FloatMenuOption floatMenuOption in TransportersArrivalActionUtility.GetFloatMenuOptions(
                 () => CanVisit(pods, site),
                 () => new TransportersArrivalAction_ChooseSpotAndLand(site),
@@ -146,10 +118,8 @@ namespace ChooseWhereToLand
                 yield return floatMenuOption;
             }
 
-
             void UIConfirmationCallback(Action action)
             {
-
                 if (ModsConfig.OdysseyActive && site.Tile.LayerDef == PlanetLayerDefOf.Orbit)
                 {
                     TaggedString text = "OrbitalWarning".Translate();

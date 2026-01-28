@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using System;
+using UnityEngine;
 using Verse;
 
 namespace ChooseWhereToLand
@@ -44,14 +45,14 @@ namespace ChooseWhereToLand
             {
                 Text.Font = GameFont.Medium;
                 Color oldColor = GUI.color;
-                GUI.color = new Color(1f, 0.9f, 0.2f);//标题颜色
+                GUI.color = new Color(1f, 0.9f, 0.2f);
                 Widgets.Label(new Rect(0f, num, inRect.width, 42f), title);
                 GUI.color = oldColor;
                 num += 42f;
                 num += 10f;
             }
             
-            if (image != null)//绘制图片，就是模组封面
+            if (image != null)
             {
                 float num2 = (float)image.width / (float)image.height;
                 float num3 = 270f * num2;
@@ -66,7 +67,7 @@ namespace ChooseWhereToLand
             Rect viewRect = new Rect(0f, 0f, width, Text.CalcHeight(text, width));
             Widgets.BeginScrollView(outRect, ref scrollPosition, viewRect);
             Color oldColor1 = GUI.color;
-            GUI.color = new Color(0f, 1f, 1f);//正文颜色
+            GUI.color = new Color(0f, 1f, 1f);
             Widgets.Label(new Rect(0f, 0f, viewRect.width, viewRect.height), text);
             GUI.color = oldColor1;
             Widgets.EndScrollView();
