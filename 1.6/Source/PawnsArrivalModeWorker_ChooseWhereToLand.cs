@@ -19,6 +19,7 @@ namespace ChooseWhereToLand
         public override void TravellingTransportersArrived(List<ActiveTransporterInfo> transporters, Map map)
         {
             Find.ScreenshotModeHandler.Active = true;
+            Find.TickManager.Pause();
 
             if (transporters.IsShuttle())
             {
