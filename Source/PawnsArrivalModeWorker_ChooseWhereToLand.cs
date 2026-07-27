@@ -96,6 +96,17 @@ namespace ChooseWhereToLand
                             Find.TickManager.Pause();
                         }
 
+                        if (Event.current.type == EventType.MouseDown && Event.current.button == 1)
+                        {
+                            Event.current.Use();
+
+                            if (!DropCellFinder.TryFindRaidDropCenterClose(out var spot, map))
+                                spot = DropCellFinder.FindRaidDropCenterDistant(map, true, false);
+
+                            TransportersArrivalActionUtility.DropShuttle(transporter, map, spot);
+                            Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
+                            Find.Targeter.StopTargeting();
+                        }
 
                         if (KeyBindingDefOf.Cancel.KeyDownEvent)
                         {
@@ -158,6 +169,17 @@ namespace ChooseWhereToLand
                             Find.TickManager.Pause();
                         }
 
+                        if (Event.current.type == EventType.MouseDown && Event.current.button == 1)
+                        {
+                            Event.current.Use();
+
+                            if (!DropCellFinder.TryFindRaidDropCenterClose(out var spot, map))
+                                spot = DropCellFinder.FindRaidDropCenterDistant(map);
+
+                            TransportersArrivalActionUtility.DropTravellingDropPods(capturedTransporters, spot, map);
+                            Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
+                            Find.Targeter.StopTargeting();
+                        }
 
                         if (KeyBindingDefOf.Cancel.KeyDownEvent)
                         {
