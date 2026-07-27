@@ -12,10 +12,20 @@ namespace ChooseWhereToLand
     {
         private static Rot4 shuttleRotation = Rot4.East;
 
+        internal static bool IsTargeting;
+        internal static Action? OnCancelTargeting;
+        internal static Map? TargetingMap;
+
+        internal static void ClearTargetingState()
+        {
+            IsTargeting = false;
+            OnCancelTargeting = null;
+            TargetingMap = null;
+        }
+
         public override void Arrive(List<Pawn> pawns, IncidentParms parms)
         {
         }
-
         public override void TravellingTransportersArrived(List<ActiveTransporterInfo> transporters, Map map)
         {
             Find.ScreenshotModeHandler.Active = true;
@@ -27,6 +37,20 @@ namespace ChooseWhereToLand
                 Thing shuttle = transporter.GetShuttle();
                 ThingDef shuttleDef = shuttle?.def ?? ThingDefOf.Shuttle;
                 shuttleRotation = shuttleDef.defaultPlacingRot;
+
+                IsTargeting = true;
+                TargetingMap = map;
+                OnCancelTargeting = () =>
+                {
+                    if (!DropCellFinder.TryFindRaidDropCenterClose(out var spot, map))
+                        spot = DropCellFinder.FindRaidDropCenterDistant(map, true, false);
+
+                    TransportersArrivalActionUtility.DropShuttle(transporter, map, spot);
+                    Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
+                    Find.ScreenshotModeHandler.Active = false;
+                    Find.Targeter.StopTargeting();
+                    ClearTargetingState();
+                };
 
                 Find.Targeter.BeginTargeting(
                     TargetingParameters.ForCell(),
@@ -53,6 +77,7 @@ namespace ChooseWhereToLand
                     {
                         Find.ScreenshotModeHandler.Active = false;
                         Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
+                        ClearTargetingState();
                     },
                     CompLaunchable.TargeterMouseAttachment,
                     true,
@@ -99,6 +124,20 @@ namespace ChooseWhereToLand
             {
                 var capturedTransporters = new List<ActiveTransporterInfo>(transporters);
 
+                IsTargeting = true;
+                TargetingMap = map;
+                OnCancelTargeting = () =>
+                {
+                    if (!DropCellFinder.TryFindRaidDropCenterClose(out var spot, map))
+                        spot = DropCellFinder.FindRaidDropCenterDistant(map);
+
+                    TransportersArrivalActionUtility.DropTravellingDropPods(capturedTransporters, spot, map);
+                    Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
+                    Find.ScreenshotModeHandler.Active = false;
+                    Find.Targeter.StopTargeting();
+                    ClearTargetingState();
+                };
+
                 Find.Targeter.BeginTargeting(
                     TargetingParameters.ForDropPodsDestination(),
                     delegate (LocalTargetInfo x)
@@ -121,6 +160,7 @@ namespace ChooseWhereToLand
                     {
                         Find.ScreenshotModeHandler.Active = false;
                         Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
+                        ClearTargetingState();
                     },
                     CompLaunchable.TargeterMouseAttachment,
                     true,

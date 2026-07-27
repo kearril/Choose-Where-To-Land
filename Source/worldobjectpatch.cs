@@ -8,6 +8,16 @@ using Verse;
 
 namespace ChooseWhereToLand
 {
+    [StaticConstructorOnStartup]
+    public static class ChooseWhereToLandMod
+    {
+        static ChooseWhereToLandMod()
+        {
+            var harmony = new Harmony("CWTL_ChooseWhereToLand");
+            harmony.PatchAll();
+        }
+    }
+    
     [HarmonyPatch(typeof(Site), nameof(Site.GetShuttleFloatMenuOptions))]
     public static class Patch_Site_GetShuttleFloatMenuOptions
     {
@@ -168,13 +178,45 @@ namespace ChooseWhereToLand
         }
     }
 
-    [StaticConstructorOnStartup]
-    public static class ChooseWhereToLandMod
+    [HarmonyPatch(typeof(GameDataSaveLoader), nameof(GameDataSaveLoader.SaveGame))]
+    public static class Patch_GameDataSaveLoader_SaveGame
     {
-        static ChooseWhereToLandMod()
+        [HarmonyPrefix]
+        public static void Prefix()
         {
-            var harmony = new Harmony("CWTL_ChooseWhereToLand");
-            harmony.PatchAll();
+            if (PawnsArrivalModeWorker_ChooseWhereToLand.IsTargeting)
+            {
+                PawnsArrivalModeWorker_ChooseWhereToLand.OnCancelTargeting?.Invoke();
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(CameraJumper), nameof(CameraJumper.TryJump),
+        typeof(IntVec3), typeof(Map), typeof(CameraJumper.MovementMode))]
+    public static class Patch_CameraJumper_TryJump
+    {
+        [HarmonyPrefix]
+        public static bool Prefix(IntVec3 cell, Map map, CameraJumper.MovementMode mode)
+        {
+            if (PawnsArrivalModeWorker_ChooseWhereToLand.IsTargeting
+                && PawnsArrivalModeWorker_ChooseWhereToLand.TargetingMap != map)
+            {
+                PawnsArrivalModeWorker_ChooseWhereToLand.OnCancelTargeting?.Invoke();
+            }
+            return true;
+        }
+    }
+
+    [HarmonyPatch(typeof(CameraJumper), nameof(CameraJumper.TryShowWorld))]
+    public static class Patch_CameraJumper_TryShowWorld
+    {
+        [HarmonyPrefix]
+        public static void Prefix()
+        {
+            if (PawnsArrivalModeWorker_ChooseWhereToLand.IsTargeting)
+            {
+                PawnsArrivalModeWorker_ChooseWhereToLand.OnCancelTargeting?.Invoke();
+            }
         }
     }
 }
