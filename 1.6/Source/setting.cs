@@ -23,14 +23,6 @@ namespace ChooseWhereToLand
                 ref settings.useCustomLandingSpot
             );
 
-            if (Prefs.DevMode)
-            {
-                if (listing.ButtonText("CWTL_Reset".Translate()))
-                {
-                    settings.noticeHistory.Clear();
-                }
-            }
-
             listing.End();
         }
 
@@ -39,12 +31,11 @@ namespace ChooseWhereToLand
 
     public class ChooseWhereToLand_Settings : ModSettings
     {
-        public Dictionary<string, string> noticeHistory = new Dictionary<string, string>();
+        
         public bool useCustomLandingSpot = true;
 
         public override void ExposeData()
         {
-            Scribe_Collections.Look(ref noticeHistory, "noticeHistory");
             Scribe_Values.Look(ref useCustomLandingSpot, "useCustomLandingSpot", true);
         }
     }
