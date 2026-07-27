@@ -13,4 +13,6 @@
   <CWTL_Setting>选择落点并降落</CWTL_Setting>
 
   <CWTL_LaunchTo>发射到{LOCATION_label}(选择落点)</CWTL_LaunchTo>
+
+  <CWTL_UnfogSpaceMap>到达未探索的太空地图时揭示周边地形（建议开启。关闭后，抵达未探索地图时布满迷雾可能导致无法选择落点）</CWTL_UnfogSpaceMap>
 </LanguageData>

@@ -8,4 +8,5 @@
   <CWTL_Setting>Choose Where To Land</CWTL_Setting>
   <CWTL_LaunchTo>Launch To {LOCATION_label} (Choose landing spot)</CWTL_LaunchTo>
   
+  <CWTL_UnfogSpaceMap>Reveal terrain on unexplored space maps (recommended. Disabling may prevent landing spot selection on fully fogged maps)</CWTL_UnfogSpaceMap>
 </LanguageData>

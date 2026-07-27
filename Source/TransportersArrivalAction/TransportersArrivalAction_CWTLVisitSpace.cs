@@ -62,7 +62,7 @@ namespace ChooseWhereToLand
             bool isNewMap = !parent.HasMap;
             Map orGenerateMap = GetOrGenerateMapUtility.GetOrGenerateMap(parent.Tile, size, parent.def);
 
-            if (isNewMap)
+            if (isNewMap && ChooseWhereToLand_Mod.settings.unfogSpaceMap)
             {
                 IntVec3 unfogCenter = DropCellFinder.FindRaidDropCenterDistant(orGenerateMap, false, false);
                 FloodFillerFog.FloodUnfog(unfogCenter, orGenerateMap);

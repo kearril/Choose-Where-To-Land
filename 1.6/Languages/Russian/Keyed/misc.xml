@@ -8,4 +8,6 @@
   <CWTL_Setting>Choose Where To Land</CWTL_Setting>
   <CWTL_LaunchTo>Запустить к {LOCATION_label} (Выберите место приземления)</CWTL_LaunchTo>
     
+
+  <CWTL_UnfogSpaceMap>Раскрыть местность на неисследованных космических картах (рекомендуется. Отключение может помешать выбору места посадки на полностью скрытых картах)</CWTL_UnfogSpaceMap>
 </LanguageData>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+    <PawnsArrivalModeDef>
+        <defName>CWTL_ChooseWhereToLand</defName>
+        <label>choose where to land</label>
+        <workerClass>ChooseWhereToLand.PawnsArrivalModeWorker_ChooseWhereToLand</workerClass>
+        <layerWhitelist>
+            <li>Surface</li>
+        </layerWhitelist>
+    </PawnsArrivalModeDef>
+    
+</Defs>

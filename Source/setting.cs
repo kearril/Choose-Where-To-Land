@@ -22,6 +22,10 @@ namespace ChooseWhereToLand
                 "CWTL_UseCustomLandingSpot".Translate(),
                 ref settings.useCustomLandingSpot
             );
+            listing.CheckboxLabeled(
+                "CWTL_UnfogSpaceMap".Translate(),
+                ref settings.unfogSpaceMap
+            );
 
             listing.End();
         }
@@ -31,12 +35,13 @@ namespace ChooseWhereToLand
 
     public class ChooseWhereToLand_Settings : ModSettings
     {
-        
         public bool useCustomLandingSpot = true;
+        public bool unfogSpaceMap = true;
 
         public override void ExposeData()
         {
             Scribe_Values.Look(ref useCustomLandingSpot, "useCustomLandingSpot", true);
+            Scribe_Values.Look(ref unfogSpaceMap, "unfogSpaceMap", true);
         }
     }
 }
