@@ -191,24 +191,22 @@ namespace ChooseWhereToLand
         }
     }
 
-    [HarmonyPatch(typeof(CameraJumper), nameof(CameraJumper.TryJump),
-        typeof(IntVec3), typeof(Map), typeof(CameraJumper.MovementMode))]
-    public static class Patch_CameraJumper_TryJump
+    [HarmonyPatch(typeof(Game), nameof(Game.CurrentMap), MethodType.Setter)]
+    public static class Patch_Game_CurrentMap_Set
     {
         [HarmonyPrefix]
-        public static bool Prefix(IntVec3 cell, Map map, CameraJumper.MovementMode mode)
+        public static void Prefix(Map value)
         {
             if (PawnsArrivalModeWorker_ChooseWhereToLand.IsTargeting
-                && PawnsArrivalModeWorker_ChooseWhereToLand.TargetingMap != map)
+                && PawnsArrivalModeWorker_ChooseWhereToLand.TargetingMap != value)
             {
                 PawnsArrivalModeWorker_ChooseWhereToLand.OnCancelTargeting?.Invoke();
             }
-            return true;
         }
     }
 
-    [HarmonyPatch(typeof(CameraJumper), nameof(CameraJumper.TryShowWorld))]
-    public static class Patch_CameraJumper_TryShowWorld
+    [HarmonyPatch(typeof(MainButtonWorker_ToggleWorld), nameof(MainButtonWorker_ToggleWorld.Activate))]
+    public static class Patch_MainButtonWorker_ToggleWorld_Activate
     {
         [HarmonyPrefix]
         public static void Prefix()
