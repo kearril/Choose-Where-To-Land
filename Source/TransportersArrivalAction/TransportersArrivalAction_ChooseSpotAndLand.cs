@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using RimWorld;
 using RimWorld.Planet;
 using Verse;
@@ -9,7 +8,7 @@ namespace ChooseWhereToLand
 {
     public class TransportersArrivalAction_ChooseSpotAndLand : TransportersArrivalAction
     {
-        public RimWorld.Planet.Site site;
+        private Site site;
 
         private static readonly PawnsArrivalModeDef fixedArrivalMode = DefDatabase<PawnsArrivalModeDef>.GetNamed("CWTL_ChooseWhereToLand", true);
 
@@ -20,7 +19,7 @@ namespace ChooseWhereToLand
         {
         }
 
-        public TransportersArrivalAction_ChooseSpotAndLand(RimWorld.Planet.Site site)
+        public TransportersArrivalAction_ChooseSpotAndLand(Site site)
         {
             this.site = site;
         }
@@ -85,7 +84,7 @@ namespace ChooseWhereToLand
             fixedArrivalMode.Worker.TravellingTransportersArrived(transporters, orGenerateMap);
         }
 
-        public static FloatMenuAcceptanceReport CanVisit(IEnumerable<IThingHolder> pods, RimWorld.Planet.Site site)
+        public static FloatMenuAcceptanceReport CanVisit(IEnumerable<IThingHolder> pods, Site site)
         {
             if (site == null || !site.Spawned)
             {
@@ -105,7 +104,7 @@ namespace ChooseWhereToLand
             return true;
         }
 
-        public static IEnumerable<FloatMenuOption> GetFloatMenuOptions(Action<PlanetTile, TransportersArrivalAction> launchAction, IEnumerable<IThingHolder> pods, RimWorld.Planet.Site site)
+        public static IEnumerable<FloatMenuOption> GetFloatMenuOptions(Action<PlanetTile, TransportersArrivalAction> launchAction, IEnumerable<IThingHolder> pods, Site site)
         {
             foreach (FloatMenuOption floatMenuOption in TransportersArrivalActionUtility.GetFloatMenuOptions(
                 () => CanVisit(pods, site),

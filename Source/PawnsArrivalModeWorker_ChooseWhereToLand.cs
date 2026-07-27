@@ -28,7 +28,6 @@ namespace ChooseWhereToLand
         }
         public override void TravellingTransportersArrived(List<ActiveTransporterInfo> transporters, Map map)
         {
-            Find.ScreenshotModeHandler.Active = true;
             Find.TickManager.Pause();
 
             if (transporters.IsShuttle())
@@ -47,7 +46,6 @@ namespace ChooseWhereToLand
 
                     TransportersArrivalActionUtility.DropShuttle(transporter, map, spot);
                     Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
-                    Find.ScreenshotModeHandler.Active = false;
                     Find.Targeter.StopTargeting();
                     ClearTargetingState();
                 };
@@ -56,7 +54,6 @@ namespace ChooseWhereToLand
                     TargetingParameters.ForCell(),
                     delegate (LocalTargetInfo x)
                     {
-                        Find.ScreenshotModeHandler.Active = false;
                         TransportersArrivalActionUtility.DropShuttle(transporter, map, x.Cell, shuttleRotation);
                     },
                     delegate (LocalTargetInfo x)
@@ -75,7 +72,6 @@ namespace ChooseWhereToLand
                     caster: null,
                     actionWhenFinished: () =>
                     {
-                        Find.ScreenshotModeHandler.Active = false;
                         Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
                         ClearTargetingState();
                     },
@@ -100,16 +96,10 @@ namespace ChooseWhereToLand
                             Find.TickManager.Pause();
                         }
 
-                        if (Event.current.type == EventType.MouseDown && Event.current.button == 1)
-                        {
-                            Find.ScreenshotModeHandler.Active = false;
-                            Event.current.Use();
-                        }
 
                         if (KeyBindingDefOf.Cancel.KeyDownEvent)
                         {
                             Event.current.Use();
-                            Find.ScreenshotModeHandler.Active = false;
 
                             if (!DropCellFinder.TryFindRaidDropCenterClose(out var spot, map))
                                 spot = DropCellFinder.FindRaidDropCenterDistant(map, true, false);
@@ -133,7 +123,6 @@ namespace ChooseWhereToLand
 
                     TransportersArrivalActionUtility.DropTravellingDropPods(capturedTransporters, spot, map);
                     Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
-                    Find.ScreenshotModeHandler.Active = false;
                     Find.Targeter.StopTargeting();
                     ClearTargetingState();
                 };
@@ -142,7 +131,6 @@ namespace ChooseWhereToLand
                     TargetingParameters.ForDropPodsDestination(),
                     delegate (LocalTargetInfo x)
                     {
-                        Find.ScreenshotModeHandler.Active = false;
                         TransportersArrivalActionUtility.DropTravellingDropPods(capturedTransporters, x.Cell, map);
                     },
                     null,
@@ -158,7 +146,6 @@ namespace ChooseWhereToLand
                     null,
                     actionWhenFinished: () =>
                     {
-                        Find.ScreenshotModeHandler.Active = false;
                         Find.TickManager.CurTimeSpeed = TimeSpeed.Normal;
                         ClearTargetingState();
                     },
@@ -171,16 +158,10 @@ namespace ChooseWhereToLand
                             Find.TickManager.Pause();
                         }
 
-                        if (Event.current.type == EventType.MouseDown && Event.current.button == 1)
-                        {
-                            Find.ScreenshotModeHandler.Active = false;
-                            Event.current.Use();
-                        }
 
                         if (KeyBindingDefOf.Cancel.KeyDownEvent)
                         {
                             Event.current.Use();
-                            Find.ScreenshotModeHandler.Active = false;
 
                             if (!DropCellFinder.TryFindRaidDropCenterClose(out var spot, map))
                                 spot = DropCellFinder.FindRaidDropCenterDistant(map);
