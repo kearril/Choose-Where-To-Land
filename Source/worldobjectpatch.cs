@@ -107,7 +107,7 @@ namespace ChooseWhereToLand
 
             IThingHolder thingHolder = pods.FirstOrDefault();
             CompTransporter firstPod = thingHolder as CompTransporter;
-            if (firstPod == null || firstPod.Shuttle.shipParent == null)
+            if (firstPod == null || firstPod.Shuttle == null || firstPod.Shuttle.shipParent == null)
                 yield break;
 
             TaggedString message = (__instance.Faction.HostileTo(Faction.OfPlayer)
